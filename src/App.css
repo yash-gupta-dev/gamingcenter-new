@@ -1,0 +1,21 @@
+:root {
+  --black: #000;
+  --gray: #18181B;
+  --gray-border: #3F3F46;
+  --gray-light: #6B7280;
+  --white: #f8fafc;
+  --red: #DC2626;
+  --red-dark: #991B1B;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--black);
+  color: var(--text-main);
+}
+
+.app-container { 
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--black);
+ }
