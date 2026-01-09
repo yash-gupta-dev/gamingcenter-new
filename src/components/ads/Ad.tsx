@@ -1,26 +1,9 @@
-import Box from '@mui/material/Box'
-import CampaignIcon from '@mui/icons-material/Campaign';
-import Typography from '@mui/material/Typography';
-
 const Ad = () => {
     return (
-        <Box
-            component={'div'}
-            className='flex flex-col flex-1 items-center bg-secondary rounded-lg justify-center border border-[var(--gray-border)] py-4'
-        >
-            <CampaignIcon className='text-[var(--red)] text-5xl' />
-            <Typography
-                variant="h6"
-                noWrap
-                className='flex font-semibold text-secondary-light'
-                sx={{
-                    fontFamily: 'monospace',
-                    textDecoration: 'none',
-                }}
-            >
-                Advertisement
-            </Typography>
-        </Box>
+        <div className="p-8 place-items-center mb-7 bg-border rounded-md">
+            <p className="text-gray">Advertisement</p>
+            {/* <img src="https://plus.unsplash.com/premium_photo-1677870728119-52aef052d7ef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className='w-3/4 h-20 rounded-md'/> */}
+        </div>
     )
 }
 

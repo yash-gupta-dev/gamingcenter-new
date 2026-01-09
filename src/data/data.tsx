@@ -4,30 +4,38 @@ import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import PsychologyIcon from '@mui/icons-material/Psychology';
+import { Home, TrendingUp, Circle, RotateCcw } from "lucide-react";
 
 export const categories = [
   {
-    Icon: <ElectricBoltIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: ElectricBoltIcon,
     title: 'Action'
   },
   {
-    Icon: <ExtensionIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: ExtensionIcon,
     title: 'Puzzle'
   },
   {
-    Icon: <DriveEtaIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: DriveEtaIcon,
     title: 'Racing'
   },
   {
-    Icon: <EmojiEventsIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: EmojiEventsIcon,
     title: 'Sports'
   },
   {
-    Icon: <SportsEsportsIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: SportsEsportsIcon,
     title: 'Arcade'
   },
   {
-    Icon: <PsychologyIcon className='text-[var(--gray-light)] text-2xl' />,
+    Icon: PsychologyIcon,
     title: 'Strategy'
   }
+];
+
+export const NAV_ITEMS = [
+  { icon: Home, label: "Home", href: "/" },
+  { icon: Circle, label: "New Games", href: "/new-games" },
+  { icon: TrendingUp, label: "Trending", href: "/trending" },
+  { icon: RotateCcw, label: "Recently Played", href: "/trending" },
 ];

@@ -1,0 +1,39 @@
+import { StepForward } from 'lucide-react'
+import GameCard from '../components/gameCard/GameCard';
+
+interface Props {
+    games: {
+        title: string;
+        rating: number;
+        plays: string;
+    }[];
+    title?: string;
+    showDetails?: boolean;
+}
+
+const SectionWrapper = ({ games, title, showDetails }: Props) => {
+    return (
+        <section className="mb-7">
+            {title && <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 bg-secondary/10 rounded-lg">
+                        <StepForward className="w-5 h-5 text-secondary" />
+                    </div>
+                    <h2 className="text-2xl text-white font-display">{title}</h2>
+                </div>
+            </div>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {games?.map((game) => (
+                    <GameCard key={game.title} title={game.title} plays={game.plays} rating={game.rating} showDetails={showDetails}/>
+                ))}
+                {(!games || games.length === 0) && (
+                    <div className="col-span-full text-center py-12 text-muted-foreground">
+                        No games found.
+                    </div>
+                )}
+            </div>
+        </section>
+    )
+}
+
+export default SectionWrapper

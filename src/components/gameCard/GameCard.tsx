@@ -1,47 +1,68 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import Link from '@mui/material/Link';
+import { Play, Star, Users2 } from 'lucide-react';
 
 interface Props {
     title: string;
-    rating: number;
     plays: string;
-    isNew?: boolean
+    rating: number;
+    showDetails?: boolean;
 }
 
-export default function GameCard({ title, rating, plays, isNew }: Props) {
-
-    const bull = (
-        <Box
-            component="span"
-            className='mx-2 text-xl'
-            sx={{ display: 'inline-block', transform: 'scale(0.8)' }}
-        >
-            •
-        </Box>
-    );
+export default function GameCard({ title, plays, rating, showDetails = true }: Props) {
     return (
-        <Card className='bg-secondary'>
-            <CardMedia
-                sx={{ height: '10rem' }}
-                image={`https://picsum.photos/200?${title}`}
-                title="green iguana"
-            />
-            <CardContent className='py-3'>
-                <Typography gutterBottom variant="h5" component="div" className='text-sm text-white'>
-                    {title}
-                </Typography>
-                <Typography variant="body2" className='flex items-center text-secondary-light text-xs font-extralight'>
-                    {
-                        isNew ? <Box component={'span'} className='bg-custom-red text-white px-2 py-[2px] rounded-sm mr-2'>
-                            New
-                        </Box>  : <><StarBorderIcon className='text-sm text-yellow-400 mr-1' />  {rating} {bull}</>
-                    } {plays} plays
-                </Typography>
-            </CardContent>
-        </Card>
+        <Link href={`/game/${title}`}>
+            <div
+                className={
+                    "group relative rounded-xl overflow-hidden bg-border border border-border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,243,255,0.15)]"}
+            >
+                {/* Image Container */}
+                <div className={
+                    "w-full overflow-hidden relative aspect-square"}>
+                    <img
+                        src={`https://picsum.photos/200?${title}`}
+                        alt={title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                    />
+
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-50 group-hover:scale-100">
+                        <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center shadow-[0_0_5px_#00f3ff]">
+                            <Play className="w-5 h-5 text-black fill-black ml-1" />
+                        </div>
+                    </div>
+
+                    {/* Rating Overlay */}
+                    {showDetails ? <div className="absolute p-2 inset-0 flex items-start justify-end">
+                        <div className="py-1 px-2 text-xxs font-extrabold rounded-md bg-black/70 flex items-center justify-center">
+                            <Star size={10} fill='gold' color='gold' className='mr-1' /> <span>{rating}</span>
+                        </div>
+                    </div> : <div className="absolute p-2 inset-0 flex items-end">
+                        <p className='text-xs font-bold'>{title}</p>
+                    </div>}
+                </div>
+
+                {/* Content */}
+                {showDetails && <div className="p-3 relative">
+                    {/* Neon line decoration */}
+                    <div className="absolute top-0 left-0 w-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-500" />
+
+                    <h3 className="font-display font-bold text-sm text-foreground truncate transition-colors">
+                        {title}
+                    </h3>
+
+                    <div className="flex items-center justify-between mt-2">
+                        <span className="text-xs text-muted-foreground text-gray-light transition-colors">
+                            Action
+                        </span>
+                        <span className="flex items-center gap-1 text-xs font-semibold text-gray-light text-muted-foreground transition-colors">
+                            <Users2 size={14} /> {plays || 0}
+                        </span>
+                    </div>
+                </div>}
+            </div>
+        </Link>
     );
 }

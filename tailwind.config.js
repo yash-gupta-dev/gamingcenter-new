@@ -11,7 +11,11 @@ export default {
         "secondary": "var(--secondary)",
         "border": "var(--border)",
         "gray": "var(--gray)",
+        "gray-light": "var(--gray-light)",
         "custom-red": "var(--red)",
+      },
+      fontSize: {
+        xxs: "0.60rem",
       },
     },
   },

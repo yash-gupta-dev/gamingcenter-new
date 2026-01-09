@@ -1,176 +1,52 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import SearchBar from '../searchbar/Searchbar';
-import Avatar from '@mui/material/Avatar';
+import { Search, Bell, Gamepad2 } from "lucide-react";
+import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
 
 export default function Header() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        React.useState<null | HTMLElement>(null);
-
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
-
     return (
-        <Box
-            component={'div'}
-            className='border-b border-[var(--border)] z-30'
-            sx={{ flexGrow: 1 }} >
-            <AppBar position="fixed" className='bg-primary'>
-                <Toolbar className='flex justify-between px-10'>
-                    <Box
-                        component={'div'}
-                        className='flex items-center gap-x-10'
-                    >
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                            className='text-[var(--secondary)]'
-                        >
-                            GAMECENTER
-                        </Typography>
-                        <SearchBar />
-                    </Box>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, columnGap: '2rem' }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <NotificationsIcon sx={{ fontSize: '1.8rem' }} />
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
+        <header className="h-16 fixed top-0 right-0 left-0 bg-background/80 backdrop-blur-md border-b border-border z-30 px-6 flex items-center justify-between">
+
+            {/* Logo */}
+            <div className="h-16 flex items-center justify-center lg:justify-start border-b border-border">
+                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <Gamepad2 className="w-6 h-6 text-[var(--secondary)]" />
+                </div>
+                <span className="hidden lg:block ml-3 font-display font-bold text-xl text-foreground tracking-widest">
+                    GAMECENTER
+                </span>
+            </div>
+
+            {/* Search Bar */}
+            <div className="flex-1 max-w-lg">
+                <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Search className="h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                    </div>
+                    <input
+                        type="text"
+                        className="block w-full pl-10 pr-3 py-2 border border-border rounded-3xl leading-5 bg-gray text-foreground placeholder-muted-foreground outline-none transition-all duration-200 sm:text-sm shadow-inner"
+                        placeholder="Search games..."
+                    />
+                </div>
+            </div>
+
+            {/* Right Actions */}
+            <div className="flex items-center space-x-4">
+                {/* Notifications */}
+                <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-white/5">
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#bc13fe]"></span>
+                </button>
+
+                <div className="flex items-center gap-3">
+                    <Link href="/login">
+                        <Button variant="contained" className="text-muted-foreground hover:text-foreground">Log In</Button>
+                    </Link>
+                    <Link href="/login">
+                        <Button variant="contained" className="text-muted-foreground hover:text-foreground">Sign Up</Button>
+                    </Link>
+                </div>
+            </div>
+        </header>
     );
 }

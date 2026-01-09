@@ -1,27 +1,13 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import type React from 'react'
-
 interface Props {
-    Icon: React.ReactNode;
-    title: string
+    title: string;
+    selected: boolean;
 }
 
-const Category = ({ Icon, title }: Props) => {
+const Category = ({ title, selected }: Props) => {
     return (
-        <Box
-            component={'div'}
-            className='flex flex-1 flex-col items-center gap-y-2 py-5 bg-secondary rounded-md'
-        >
-            {Icon}
-            <Typography
-                variant="h1"
-                noWrap
-                className='text-white text-sm text-secondary-light'
-            >
-                {title}
-            </Typography>
-        </Box>
+        <div className={`px-4 py-1 text-sm font-semibold ${!selected ? "bg-gray" : "bg-secondary text-black"} rounded-3xl border border-[var(--gray-border)]`}>
+            <p>{title}</p>
+        </div>
     )
 }
 
