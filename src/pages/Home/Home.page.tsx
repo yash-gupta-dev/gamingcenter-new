@@ -16,6 +16,7 @@ import Category from "../../components/category/Category";
 import Footer from "../../components/footer/Footer";
 import Grid from "@mui/material/Grid";
 import GameCard from "../../components/gameCard/GameCard";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 const Home = () => {
   const categories = [
@@ -98,11 +99,15 @@ const Home = () => {
     },
   ];
 
+  return <>
+    <Sidebar />
+  </>
+
   return (
     <>
       <Header />
 
-      {/* Top advertisement */}
+      Top advertisement
       <Box component={'div'} className="flex flex-1 py-5 px-12 bg-secondary">
         <Ad />
       </Box>

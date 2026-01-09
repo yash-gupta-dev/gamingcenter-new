@@ -8,14 +8,14 @@ const SearchBar = () => {
         alignItems: 'center',
         columnGap: '1rem',
         position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        borderRadius: '9rem',
+        backgroundColor: '#334155',
         '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
+            backgroundColor: '#334155',
         },
         marginLeft: 0,
         width: '100%',
-        padding: '.3rem 1rem',
+        padding: '.4rem 1rem',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
             width: 'auto',
@@ -33,12 +33,12 @@ const SearchBar = () => {
     }));
 
     return <Search>
+        <SearchIcon />
         <StyledInputBase
-            placeholder="Search Games..."
-            className="text-base"
+            placeholder="Search Games, genres or tags..."
+            className="text-base w-80"
             inputProps={{ 'aria-label': 'search' }}
         />
-        <SearchIcon />
     </Search>
 }
 

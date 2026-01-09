@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary": "var(--black)",
-        "secondary": "var(--gray)",
-        "gray-border": "var(--gray-border)",
-        "secondary-light": "var(--gray-light)",
+        "primary": "var(--primary)",
+        "secondary": "var(--secondary)",
+        "border": "var(--border)",
+        "gray": "var(--gray)",
         "custom-red": "var(--red)",
       },
     },
