@@ -1,9 +1,6 @@
-import Box from "@mui/material/Box"
-
 const Footer = () => {
     return (
-        <Box
-            component={'footer'}
+        <div
             className="flex flex-col space-y-10 justify-center m-10 border-t border-[var(--red)] pt-10">
 
             <nav className="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
@@ -32,7 +29,7 @@ const Footer = () => {
                 </a>
             </div>
             <p className="text-center text-gray-700 font-medium">&copy; 2022 Company Ltd. All rights reservered.</p>
-        </Box>
+        </div>
     )
 }
 

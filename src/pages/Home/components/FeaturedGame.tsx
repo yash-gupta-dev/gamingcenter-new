@@ -1,10 +1,8 @@
-import Button from '@mui/material/Button'
-import Link from '@mui/material/Link'
 import { Heart, Play } from 'lucide-react'
 
 const FeaturedGame = () => {
     return (
-        <section className="relative mb-10 h-96 lg:h-[400px] rounded-xl overflow-hidden group">
+        <section className="relative mb-10 h-96 lg:h-[400px] rounded-xl overflow-hidden group shadow-[0_0_8px_var(--border)]">
             <div className="absolute inset-0">
                 <img
                     src={"https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
@@ -25,15 +23,15 @@ const FeaturedGame = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis dolorem accusamus illo autem et unde nulla dolor nam, expedita id sequi pariatur labore est nesciunt corporis aliquid alias illum ut.
                 </p>
                 <div className="flex gap-4">
-                    <Link href={`/game/1`}>
-                        <Button className="flex items-center h-12 px-8 text-sm bg-secondary text-black font-bold uppercase transition-all duration-300 rounded-3xl">
+                    <a href={`/game/1`}>
+                        <button className="flex items-center h-12 px-8 text-sm bg-secondary text-black font-bold uppercase transition-all duration-300 rounded-3xl">
                             <Play fill='' size={15} className='mr-1'/>
                             <span>Play Now</span>
-                        </Button>
-                    </Link>
-                    <Button variant="contained" className="h-12 text-white bg-border rounded-full">
+                        </button>
+                    </a>
+                    <button className="text-white px-3 bg-border rounded-full">
                         <Heart/>
-                    </Button>
+                    </button>
                 </div>
             </div>
         </section>

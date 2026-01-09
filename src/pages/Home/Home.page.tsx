@@ -3,7 +3,7 @@ import Category from "../../components/category/Category";
 import { categories } from "../../data/data";
 import AppWrapper from "../../HOC/AppWrapper";
 import SectionWrapper from "../../HOC/SectionWrapper";
-import FeaturedGame from "./components/featuredGame";
+import FeaturedGame from "./components/FeaturedGame";
 
 const Home = () => {
   const games = [

@@ -1,4 +1,3 @@
-import Link from '@mui/material/Link';
 import { Play, Star, Users2 } from 'lucide-react';
 
 interface Props {
@@ -10,7 +9,7 @@ interface Props {
 
 export default function GameCard({ title, plays, rating, showDetails = true }: Props) {
     return (
-        <Link href={`/game/${title}`}>
+        <a href={`/game/${title}`} className='shadow-[0_0_8px_var(--border)]'>
             <div
                 className={
                     "group relative rounded-xl overflow-hidden bg-border border border-border cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,243,255,0.15)]"}
@@ -63,6 +62,6 @@ export default function GameCard({ title, plays, rating, showDetails = true }: P
                     </div>
                 </div>}
             </div>
-        </Link>
+        </a>
     );
 }

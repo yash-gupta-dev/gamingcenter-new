@@ -14,12 +14,12 @@ interface Props {
 const SectionWrapper = ({ games, title, showDetails }: Props) => {
     return (
         <section className="mb-7">
-            {title && <div className="flex justify-between items-center mb-6">
+            {title && <div className="flex justify-between items-center mb-3">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-secondary/10 rounded-lg">
                         <StepForward className="w-5 h-5 text-secondary" />
                     </div>
-                    <h2 className="text-2xl text-white font-display">{title}</h2>
+                    <h2 className="text-xl text-white font-display">{title}</h2>
                 </div>
             </div>}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

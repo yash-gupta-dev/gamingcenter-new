@@ -3,7 +3,7 @@ import { categories, NAV_ITEMS } from "../../data/data";
 export default function Sidebar() {
 
   return (
-    <aside className="w-20 mt-16 lg:w-64 h-screen float-start bg-card border-border z-40 flex flex-col transition-all duration-300">
+    <aside className="w-20 mt-16 lg:w-60 h-screen float-start bg-card border-border z-40 flex flex-col transition-all duration-300">
       <nav className="flex-1 p-3 space-y-2 overflow-y-auto border-r border-border">
         <div>
           <h3 className="pl-4 mb-2 text-gray-light text-xs font-semibold">MENU</h3>

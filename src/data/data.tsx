@@ -1,34 +1,28 @@
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
-import ExtensionIcon from '@mui/icons-material/Extension';
-import DriveEtaIcon from '@mui/icons-material/DriveEta';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import PsychologyIcon from '@mui/icons-material/Psychology';
-import { Home, TrendingUp, Circle, RotateCcw } from "lucide-react";
+import { Home, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain } from "lucide-react";
 
 export const categories = [
   {
-    Icon: ElectricBoltIcon,
+    Icon: Zap,
     title: 'Action'
   },
   {
-    Icon: ExtensionIcon,
+    Icon: Puzzle,
     title: 'Puzzle'
   },
   {
-    Icon: DriveEtaIcon,
+    Icon: CarFront,
     title: 'Racing'
   },
   {
-    Icon: EmojiEventsIcon,
+    Icon: Trophy,
     title: 'Sports'
   },
   {
-    Icon: SportsEsportsIcon,
+    Icon: Gamepad,
     title: 'Arcade'
   },
   {
-    Icon: PsychologyIcon,
+    Icon: Brain,
     title: 'Strategy'
   }
 ];

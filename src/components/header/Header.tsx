@@ -1,6 +1,4 @@
 import { Search, Bell, Gamepad2 } from "lucide-react";
-import Link from "@mui/material/Link";
-import Button from "@mui/material/Button";
 
 export default function Header() {
     return (
@@ -39,12 +37,12 @@ export default function Header() {
                 </button>
 
                 <div className="flex items-center gap-3">
-                    <Link href="/login">
-                        <Button variant="contained" className="text-muted-foreground hover:text-foreground">Log In</Button>
-                    </Link>
-                    <Link href="/login">
-                        <Button variant="contained" className="text-muted-foreground hover:text-foreground">Sign Up</Button>
-                    </Link>
+                    <a href="/login">
+                        <button className="text-muted-foreground hover:text-foreground">Log In</button>
+                    </a>
+                    <a href="/login">
+                        <button className="text-muted-foreground hover:text-foreground">Sign Up</button>
+                    </a>
                 </div>
             </div>
         </header>
