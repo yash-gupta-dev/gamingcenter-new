@@ -1,35 +1,59 @@
-import { Gamepad2 } from 'lucide-react'
+import { Gamepad2, X } from 'lucide-react'
 
 import Loader from '../../loader/Loader'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import OTPInput from '../../components/otpInput/OTPInput';
 import Modal from '../../components/modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useVerifyEmailMutation } from '../../services/redux/apis/auth';
+import { getApiErrorMessage } from '../../utils/errors.utils';
+import { useOTPVerificationForm } from './OTpVerification.schema';
+import { Controller } from 'react-hook-form';
 
 
 const OTPVerification = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [modalOpen, setModalOpen] = useState(false)
+    const [verifyEmail, { isError, isLoading, error: apiError }] = useVerifyEmailMutation()
+    const [errorMessage, setErrorMessage] = useState<string | null>("");
 
-    const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useOTPVerificationForm();
+
+    useEffect(() => {
+        if (isError) {
+            const errorMessage = getApiErrorMessage(apiError);
+            setErrorMessage(errorMessage);
+            setModalOpen(true)
+        }
+    }, [isError])
+
+    const onSubmit = async (data: { otp: string }) => {
+        const email = location.state.email;
+        await verifyEmail({ otp: data.otp, email }).unwrap();
         setModalOpen(true)
     }
-    
+
     const onModalClose = () => {
         setModalOpen(false)
-        navigate('/login')
+        !isError && navigate('/login')
     }
 
-    if (false) {
+    if (isLoading) {
         return <Loader />
     }
 
     return (
         <div className="flex-col p-8 z-10 min-h-screen w-full flex items-center justify-center bg-background py-12">
-            <Modal isOpen={modalOpen} onClose={onModalClose}>
+            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={isError ? <div className="p-4 mb-5 bg-gray rounded-full">
+                <X className='text-custom-red' strokeWidth={4} />
+            </div> : null}>
                 <div className="mb-5">
-                    <h2 className='text-lg'>Verification Success!</h2>
+                    <h2 className='text-lg'>{errorMessage || "Email Verified!"}</h2>
                 </div>
             </Modal>
 
@@ -44,10 +68,15 @@ const OTPVerification = () => {
             {/* Card */}
             <div className="border lg:w-1/3 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                 <div className="space-y-4">
-                    <form className="space-y-4" onSubmit={onSubmit} noValidate>
+                    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
                         <div className="space-y-2">
-                            <OTPInput length={4} onComplete={() => { }} />
-                            {/* {errors.email && <p className='text-custom-red text-xs'>{errors.email.message}</p>} */}
+                            <Controller
+                                name='otp'
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => <OTPInput length={4} {...field} />}
+                            />
+                            {errors.otp && <p className='text-custom-red text-xs'>{errors.otp.message}</p>}
                         </div>
                         <button className="w-full h-12 bg-secondary hover:bg-secondary/50 text-black font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,243,255,0.3)]" type='submit'>
                             Continue

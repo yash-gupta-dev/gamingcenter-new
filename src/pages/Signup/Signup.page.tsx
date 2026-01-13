@@ -55,9 +55,9 @@ const Signup = () => {
 
     return (
         <div className="flex-col p-8 z-10 min-h-screen w-full flex items-center justify-center bg-background py-12">
-            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={<div className="p-4 mb-5 bg-gray rounded-full">
+            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={isError ? <div className="p-4 mb-5 bg-gray rounded-full">
                 <X className='text-custom-red' strokeWidth={4} />
-            </div>}>
+            </div> : null}>
                 <div className="mb-5">
                     <h2 className='text-lg'>{errorMessage || "Account Created Successfully!"}</h2>
                 </div>

@@ -1,4 +1,4 @@
-import type { LoginRequest, User } from '../../../types/user.types';
+import type { LoginRequest, SignUpRequest, User } from '../../../types/user.types';
 import { api } from './index'
 
 export const authApi = api.injectEndpoints({
@@ -14,17 +14,9 @@ export const authApi = api.injectEndpoints({
             invalidatesTags: ["Auth"],
         }),
         // Signup
-        signup: build.mutation({
+        signup: build.mutation<User, SignUpRequest>({
             query: (data) => ({
                 url: 'signup',
-                method: 'POST',
-                body: data,
-            }),
-            invalidatesTags: ["Auth"],
-        }),
-        verifyEmail: build.mutation({
-            query: (data) => ({
-                url: 'verify-code',
                 method: 'POST',
                 body: data,
             }),
@@ -34,30 +26,22 @@ export const authApi = api.injectEndpoints({
         // Forgot Password
         resetPasswordRequest: build.mutation({
             query: (data) => ({
-                url: 'http://34.170.191.96:3000/api/password/reset-request',
+                url: 'forgot-password',
                 method: 'POST',
                 body: data,
             }),
             invalidatesTags: ["Auth"],
         }),
 
-        resetPasswordverifyEmail: build.mutation({
+        verifyEmail: build.mutation({
             query: (data) => ({
-                url: 'http://34.170.191.96:3000/api/password/verify-code',
+                url: 'verify-otp',
                 method: 'POST',
                 body: data,
             }),
             invalidatesTags: ["Auth"],
         }),
 
-        createPasswordReset: build.mutation({
-            query: (data) => ({
-                url: 'http://34.170.191.96:3000/api/password/reset-password',
-                method: 'POST',
-                body: data,
-            }),
-            invalidatesTags: ["Auth"],
-        }),
     }),
 });
 
@@ -66,6 +50,4 @@ export const {
     useSignupMutation,
     useVerifyEmailMutation,
     useResetPasswordRequestMutation,
-    useResetPasswordverifyEmailMutation,
-    useCreatePasswordResetMutation
 } = authApi;

@@ -2,10 +2,10 @@ import { useRef, useState } from 'react'
 
 type InputProps = {
     length?: number;
-    onComplete: (pin: string) => void;
+    onChange: (pin: string) => void;
 };
 
-const OTPInput = ({ length = 4, onComplete }: InputProps) => {
+const OTPInput = ({ length = 4, onChange }: InputProps) => {
     const inputRef = useRef<HTMLInputElement[]>(Array(length).fill(null));
 
 
@@ -27,9 +27,9 @@ const OTPInput = ({ length = 4, onComplete }: InputProps) => {
             inputRef.current[index - 1]?.focus();
         }
 
-        // if user has entered all the digits, grab the digits and set as an argument to the onComplete function.
+        // if user has entered all the digits, grab the digits and set as an argument to the onChange function.
         if (newPin.every((digit) => digit !== '')) {
-            onComplete(newPin.join(''));
+            onChange(newPin.join(''));
         }
     };
 
