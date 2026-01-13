@@ -4,7 +4,7 @@ import { getItem } from "../../../utils/localstorage.utils";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/" + 'api/',
+    baseUrl: "http://192.168.1.30:8000/" + 'api/',
     prepareHeaders: async (headers: Headers) => {
       const token = await getItem('token');
       if (token) {

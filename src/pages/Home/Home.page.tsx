@@ -58,8 +58,8 @@ const Home = () => {
 
       {/* Continue Playng */}
       <SectionWrapper games={games.slice(0, 4)} title="Continue Playing" showDetails={false} />
-
       <div className="flex gap-x-5 mb-7">
+
         <Category title={"All Games"} selected/>
         {
           categories.map(c => <Category title={c.title} selected={false}/>)

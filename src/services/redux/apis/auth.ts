@@ -2,7 +2,6 @@ import { api } from './index'
 
 // ==================== TYPES ====================
 export interface LoginRequest {
-    type: number;
     email: string;
     password: string;
 }

@@ -10,7 +10,7 @@ type StorageValue<T> = {
 /* ---------------------------------------------
    Set Item
 --------------------------------------------- */
-export const setItem = <T>(
+export const setItemToStorage = <T>(
   key: string,
   value: T,
   ttlInMs?: number
