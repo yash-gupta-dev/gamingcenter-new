@@ -6,7 +6,7 @@ import { useSignupForm, type SignupFormValues } from './signup.schema';
 import Modal from '../../components/modal/Modal';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { setItemToStorage } from '../../utils/localstorage.utils';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -20,9 +20,13 @@ const Signup = () => {
     } = useSignupForm();
 
     const onSubmit = async (data: SignupFormValues) => {
+        const response = await signup({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        }).unwrap();
+        await setItemToStorage("user", response)
         setModalOpen(true)
-        // const response = await signup(data).unwrap();
-        // console.log(response)
     }
 
     const onModalClose = () => {

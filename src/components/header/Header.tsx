@@ -37,11 +37,11 @@ export default function Header() {
                 </button>
 
                 <div className="flex items-center gap-3">
-                    <a href="/login">
-                        <button className="text-muted-foreground hover:text-foreground">Log In</button>
+                    <a href="/login" className="bg-secondary py-1 px-2 rounded-sm">
+                        <button className="text-sm text-primary font-bold hover:text-foreground">Log In</button>
                     </a>
-                    <a href="/login">
-                        <button className="text-muted-foreground hover:text-foreground">Sign Up</button>
+                    <a href="/signup">
+                        <button className="text-sm hover:text-foreground">Sign Up</button>
                     </a>
                 </div>
             </div>
