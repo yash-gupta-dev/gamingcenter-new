@@ -1,9 +1,18 @@
-import { categories, NAV_ITEMS } from "../../data/data";
+import { categories, NAV_ITEMS, userOptions } from "../../data/data";
+import { useAppDispatch, useAppSelector } from "../../services/redux/store";
+import { clearStorage } from "../../utils/localstorage.utils";
+import { logout as logoutAction } from '../../services/redux/slices/auth.slice';
 
 export default function Sidebar() {
+  const user = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch();
 
+  const logout = () => {
+    dispatch(logoutAction())
+    clearStorage();
+  }
   return (
-    <aside className="w-20 mt-16 lg:w-60 h-screen float-start bg-card border-border z-40 flex flex-col transition-all duration-300">
+    <aside className="w-20 mt-16 lg:w-60 float-start bg-card border-border z-40 flex flex-col transition-all duration-300">
       <nav className="flex-1 p-3 space-y-2 overflow-y-auto border-r border-border">
         <div>
           <h3 className="pl-4 mb-2 text-gray-light text-xs font-semibold">MENU</h3>
@@ -49,6 +58,30 @@ export default function Sidebar() {
             );
           })}
         </div>
+
+        {user.id && <div>
+          <h3 className="pl-4 my-3  text-gray-light text-xs font-semibold">
+            User Options
+          </h3>
+          {userOptions.map((item) => {
+            return (
+              <a key={item.title} href={item.path || '#'}>
+                <div
+                  className="flex items-center pr-3 pl-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group relative overflow-hidden text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  onClick={item.title === 'Log Out' ? logout : () => { }}
+                >
+                  <item.Icon
+                    className=
+                    {`w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110text-primary`}
+                  />
+                  <span className={`hidden lg:block ml-3 font-medium tracking-wide text-sm`}>
+                    {item.title}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>}
       </nav>
     </aside>
   );

@@ -1,4 +1,4 @@
-import { Home, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain } from "lucide-react";
+import { Home, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain, User, Power } from "lucide-react";
 
 export const categories = [
   {
@@ -24,6 +24,19 @@ export const categories = [
   {
     Icon: Brain,
     title: 'Strategy'
+  }
+];
+
+export const userOptions = [
+  {
+    Icon: User,
+    title: 'Profile',
+    path: '/profile'
+  },
+  {
+    Icon: Power,
+    title: 'Log Out',
+    path: null
   }
 ];
 

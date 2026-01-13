@@ -3,12 +3,10 @@ export interface LoginRequest {
     password: string;
 }
 
-export interface LoginResponse {
-    token: string;
-    refreshToken: string;
-}
-
-export interface User extends LoginResponse {
+export interface User {
+    id: string,
     email: string;
     name: string;
+    token: string;
+    refreshToken: string;
 }

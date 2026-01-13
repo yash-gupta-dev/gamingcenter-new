@@ -7,10 +7,16 @@ import { useEffect, useState } from 'react'
 import Modal from '../../components/modal/Modal';
 import { getApiErrorMessage } from '../../utils/errors.utils';
 import { setItemToStorage } from '../../utils/localstorage.utils';
+import { useAppDispatch } from '../../services/redux/store';
+import { login as loginAction } from '../../services/redux/slices/auth.slice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
     const [login, { isLoading, isError, error: apiError }] = useLoginMutation();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+
     const [modalOpen, setModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>("")
 
@@ -21,7 +27,7 @@ const Login = () => {
     } = useLoginForm();
 
     useEffect(() => {
-        if (isError) {            
+        if (isError) {
             const errorMessage = getApiErrorMessage(apiError);
             setErrorMessage(errorMessage);
             setModalOpen(true)
@@ -31,10 +37,13 @@ const Login = () => {
     const onSubmit = async (data: LoginFormValues) => {
         const response = await login(data).unwrap();
         await setItemToStorage("user", response)
+        dispatch(loginAction(response))
+        setModalOpen(true)
     }
 
     const onModalClose = () => {
         setModalOpen(false)
+        navigate('/')
     }
 
     if (isLoading) {
@@ -43,9 +52,9 @@ const Login = () => {
 
     return (
         <div className="flex-col p-8 z-10 min-h-screen w-full flex items-center justify-center bg-background py-12">
-            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={<div className="p-4 mb-5 bg-gray rounded-full">
+            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={isError ? <div className="p-4 mb-5 bg-gray rounded-full">
                 <X className='text-custom-red' strokeWidth={4} />
-            </div>}>
+            </div> : null}>
                 <div className="mb-5">
                     <h2 className='text-lg'>{errorMessage || "Logged In Successfully!"}</h2>
                 </div>

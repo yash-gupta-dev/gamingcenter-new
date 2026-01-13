@@ -1,11 +1,11 @@
-import type { LoginRequest, LoginResponse } from '../../../types/user.types';
+import type { LoginRequest, User } from '../../../types/user.types';
 import { api } from './index'
 
 export const authApi = api.injectEndpoints({
     overrideExisting: true,
     endpoints: (build) => ({
         // Login
-        login: build.mutation<LoginResponse, LoginRequest>({
+        login: build.mutation<User, LoginRequest>({
             query: (credentials) => ({
                 url: "login",
                 method: "POST",

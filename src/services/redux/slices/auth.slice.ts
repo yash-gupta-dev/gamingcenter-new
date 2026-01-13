@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { User } from "../../../types/user.types";
 
 const initialState: User = {
+  id: "",
   token: "",
   refreshToken: "",
   email: '',

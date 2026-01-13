@@ -8,9 +8,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setItemToStorage } from '../../utils/localstorage.utils';
 import { getApiErrorMessage } from '../../utils/errors.utils';
+import { useAppDispatch } from '../../services/redux/store';
+import { login } from '../../services/redux/slices/auth.slice';
 
 const Signup = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+
     const [signup, { isLoading, isError, error: apiError }] = useSignupMutation();
     const [modalOpen, setModalOpen] = useState(false)
     const [errorMessage, setErrorMessage] = useState<string | null>("")
@@ -36,6 +40,7 @@ const Signup = () => {
             password: data.password,
         }).unwrap();
         setItemToStorage("user", response)
+        dispatch(login(response))
         setModalOpen(true)
     }
 

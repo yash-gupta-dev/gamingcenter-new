@@ -39,7 +39,7 @@ export default function Header() {
                     <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#bc13fe]"></span>
                 </button>
 
-                {user ? <img className="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150?img=7" alt="Default avatar" />
+                {user.id ? <img className="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150?img=7" alt="Default avatar" />
                     : <div className="flex items-center gap-3">
                         <a href="/login" className="bg-secondary py-1 px-2 rounded-sm">
                             <button className="text-sm text-primary font-bold hover:text-foreground">Log In</button>
