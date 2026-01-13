@@ -31,5 +31,5 @@ export const NAV_ITEMS = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Circle, label: "New Games", href: "/new-games" },
   { icon: TrendingUp, label: "Trending", href: "/trending" },
-  { icon: RotateCcw, label: "Recently Played", href: "/trending" },
+  { icon: RotateCcw, label: "Recently Played", href: "/recently-deleted" },
 ];

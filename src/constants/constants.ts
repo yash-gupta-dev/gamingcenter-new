@@ -6,11 +6,25 @@ import OTPVerification from "../pages/OTPVerificatiom/OTPVerification";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import Signup from "../pages/Signup/Signup.page";
 
-export const routes = [
+export const commonRoutes = [
     {
         path: '/',
         element: Home
     },
+    {
+        path: '/game/:id',
+        element: Game
+    }
+]
+
+export const protectedRoutes = [
+    {
+        path: '/add-game',
+        element: Game
+    },
+]
+
+export const authRoutes = [
     {
         path: '/login',
         element: Login
@@ -30,13 +44,5 @@ export const routes = [
     {
         path: '/reset-password',
         element: ResetPassword
-    },
-    {
-        path: '/game/:id',
-        element: Game
-    },
-    {
-        path: '/add-game',
-        element: Game
-    },
+    }
 ]

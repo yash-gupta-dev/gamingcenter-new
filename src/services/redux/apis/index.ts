@@ -1,12 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getItem } from "../../../utils/localstorage.utils";
+import { getItemFromStorage } from "../../../utils/localstorage.utils";
+import type { User } from "../../../types/user.types";
 
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://192.168.1.30:8000/" + 'api/',
     prepareHeaders: async (headers: Headers) => {
-      const token = await getItem('token');
+      const user = await getItemFromStorage<User>('user');
+      const token = user?.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

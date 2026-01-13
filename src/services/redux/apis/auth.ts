@@ -1,17 +1,6 @@
+import type { LoginRequest, LoginResponse } from '../../../types/user.types';
 import { api } from './index'
 
-// ==================== TYPES ====================
-export interface LoginRequest {
-    email: string;
-    password: string;
-}
-
-export interface LoginResponse {
-    token: string;
-    refreshToken: string;
-}
-
-// ==================== ENDPOINTS ====================
 export const authApi = api.injectEndpoints({
     overrideExisting: true,
     endpoints: (build) => ({

@@ -31,7 +31,7 @@ export const setItemToStorage = <T>(
 /* ---------------------------------------------
    Get Item
 --------------------------------------------- */
-export const getItem = <T>(key: string): T | null => {
+export const getItemFromStorage = <T>(key: string): T | null => {
 
   try {
     const item = window.localStorage.getItem(key)
