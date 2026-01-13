@@ -47,7 +47,7 @@ const Login = () => {
                 <X className='text-custom-red' strokeWidth={4} />
             </div>}>
                 <div className="mb-5">
-                    <h2 className='text-lg'>{errorMessage || "Account Created Successfully!"}</h2>
+                    <h2 className='text-lg'>{errorMessage || "Logged In Successfully!"}</h2>
                 </div>
             </Modal>
             <div className="text-center mb-8">

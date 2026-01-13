@@ -1,6 +1,9 @@
 import { Search, Bell, Gamepad2 } from "lucide-react";
+import { useAppSelector } from "../../services/redux/store";
 
 export default function Header() {
+    const user = useAppSelector(state => state.auth);
+
     return (
         <header className="h-16 fixed top-0 right-0 left-0 bg-background/80 backdrop-blur-md border-b border-border z-30 px-6 flex items-center justify-between">
 
@@ -36,14 +39,15 @@ export default function Header() {
                     <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#bc13fe]"></span>
                 </button>
 
-                <div className="flex items-center gap-3">
-                    <a href="/login" className="bg-secondary py-1 px-2 rounded-sm">
-                        <button className="text-sm text-primary font-bold hover:text-foreground">Log In</button>
-                    </a>
-                    <a href="/signup">
-                        <button className="text-sm hover:text-foreground">Sign Up</button>
-                    </a>
-                </div>
+                {user ? <img className="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150?img=7" alt="Default avatar" />
+                    : <div className="flex items-center gap-3">
+                        <a href="/login" className="bg-secondary py-1 px-2 rounded-sm">
+                            <button className="text-sm text-primary font-bold hover:text-foreground">Log In</button>
+                        </a>
+                        <a href="/signup">
+                            <button className="text-sm hover:text-foreground">Sign Up</button>
+                        </a>
+                    </div>}
             </div>
         </header>
     );

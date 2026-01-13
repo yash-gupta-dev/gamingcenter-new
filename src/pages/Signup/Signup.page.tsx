@@ -1,17 +1,19 @@
-import { Gamepad2 } from 'lucide-react'
+import { Gamepad2, X } from 'lucide-react'
 
 import { useSignupMutation } from '../../services/redux/apis/auth'
 import Loader from '../../loader/Loader'
 import { useSignupForm, type SignupFormValues } from './signup.schema';
 import Modal from '../../components/modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setItemToStorage } from '../../utils/localstorage.utils';
+import { getApiErrorMessage } from '../../utils/errors.utils';
 
 const Signup = () => {
     const navigate = useNavigate();
-    const [signup, { isLoading }] = useSignupMutation();
+    const [signup, { isLoading, isError, error: apiError }] = useSignupMutation();
     const [modalOpen, setModalOpen] = useState(false)
+    const [errorMessage, setErrorMessage] = useState<string | null>("")
 
     const {
         register,
@@ -19,13 +21,21 @@ const Signup = () => {
         formState: { errors },
     } = useSignupForm();
 
+    useEffect(() => {
+        if (isError) {
+            const errorMessage = getApiErrorMessage(apiError);
+            setErrorMessage(errorMessage);
+            setModalOpen(true)
+        }
+    }, [isError])
+
     const onSubmit = async (data: SignupFormValues) => {
         const response = await signup({
             name: data.name,
             email: data.email,
             password: data.password,
         }).unwrap();
-        await setItemToStorage("user", response)
+        setItemToStorage("user", response)
         setModalOpen(true)
     }
 
@@ -40,9 +50,11 @@ const Signup = () => {
 
     return (
         <div className="flex-col p-8 z-10 min-h-screen w-full flex items-center justify-center bg-background py-12">
-            <Modal isOpen={modalOpen} onClose={onModalClose}>
+            <Modal isOpen={modalOpen} onClose={onModalClose} Icon={<div className="p-4 mb-5 bg-gray rounded-full">
+                <X className='text-custom-red' strokeWidth={4} />
+            </div>}>
                 <div className="mb-5">
-                    <h2 className='text-lg'>Account Created Successfully!</h2>
+                    <h2 className='text-lg'>{errorMessage || "Account Created Successfully!"}</h2>
                 </div>
             </Modal>
             <div className="text-center mb-8">
