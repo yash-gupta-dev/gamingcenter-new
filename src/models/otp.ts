@@ -1,10 +1,12 @@
 import {
-  Model,
   DataTypes,
   Sequelize,
-  Optional
 } from 'sequelize';
 import { Otp } from './types/types';
+import ejs from 'ejs'
+import path from "path";
+import { sendMail } from '../services/smtp.service';
+
 
 export default (sequelize: Sequelize): typeof Otp => {
   Otp.init(
@@ -30,11 +32,15 @@ export default (sequelize: Sequelize): typeof Otp => {
       createdAt: 'created_at',
       hooks: {
         afterCreate: async (data) => {
-            if(data.dataValues.email) {
-              // send otp via mail
-            } else {
-              // send otp via sms
-            }
+          console.log(1);
+          
+          const filePath = path.join(__dirname, '..', 'src', 'views', 'mail', 'otp.ejs')
+          console.log(12, data.email);
+          
+          ejs.renderFile(filePath).then((r: string) => {
+            console.log(123);
+            sendMail(data.email, "Verification OTP", null, r)
+          })
         }
       }
     }
