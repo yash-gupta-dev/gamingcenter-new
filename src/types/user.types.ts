@@ -16,5 +16,9 @@ export interface LoginRequest {
     password: string;
 }
 
+export interface GoogleLoginRequest {
+    code: string;
+}
+
 export type ForgotPasswordRequest  = Pick<LoginRequest, 'email'>
 

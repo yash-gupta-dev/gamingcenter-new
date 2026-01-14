@@ -5,7 +5,7 @@ import type { User } from "../../../types/user.types";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://192.168.1.30:8000/" + 'api/',
+    baseUrl: import.meta.env.VITE_BASE_URL + 'api/',
     prepareHeaders: async (headers: Headers) => {
       const user = await getItemFromStorage<User>('user');
       const accessToken = user?.accessToken;

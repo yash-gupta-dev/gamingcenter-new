@@ -1,4 +1,4 @@
-import type { LoginRequest, SignUpRequest, User } from '../../../types/user.types';
+import type { GoogleLoginRequest, LoginRequest, SignUpRequest, User } from '../../../types/user.types';
 import { api } from './index'
 
 export const authApi = api.injectEndpoints({
@@ -8,6 +8,15 @@ export const authApi = api.injectEndpoints({
         login: build.mutation<User, LoginRequest>({
             query: (credentials) => ({
                 url: "login",
+                method: "POST",
+                body: credentials,
+            }),
+            invalidatesTags: ["Auth"],
+        }),
+        // Login with Google
+        loginWithGoogle: build.mutation<User, GoogleLoginRequest>({
+            query: (credentials) => ({
+                url: "login-with-google",
                 method: "POST",
                 body: credentials,
             }),
@@ -59,5 +68,6 @@ export const {
     useSignupMutation,
     useVerifyEmailMutation,
     useResetPasswordRequestMutation,
-    useResetPasswordMutation
+    useResetPasswordMutation,
+    useLoginWithGoogleMutation
 } = authApi;

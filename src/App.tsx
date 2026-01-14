@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { getItemFromStorage } from './utils/localstorage.utils';
 import { login } from './services/redux/slices/auth.slice';
 import type { User } from './types/user.types';
+import GoogleLogin from './pages/GoogleLogin/GoogleLogin';
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ const Navigator = () => {
             return <Route path={r.path} element={<r.element />} />
           })
         }
+        <Route path={'/auth/google/google-callback/oauth/login'} element={<GoogleLogin />} />
 
         <Route path='*' element={<NotFound />} />
 
