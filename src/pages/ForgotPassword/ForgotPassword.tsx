@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
         getValues
     } = useForgotPasswordForm();
 
@@ -42,7 +42,7 @@ const ForgotPassword = () => {
     const onModalClose = () => {
         setModalOpen(false);
         const value = getValues('email');
-        !isError && navigate('/otp-verification', {
+        isValid && !isError && navigate('/otp-verification', {
             state: {
                 email: value,
                 resetToken

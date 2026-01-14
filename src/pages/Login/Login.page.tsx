@@ -23,7 +23,7 @@ const Login = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useLoginForm();
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const Login = () => {
     
     const onModalClose = () => {
         setModalOpen(false)
-        navigate('/')
+        isValid && !isError && navigate('/')
     }
 
     if (isLoading) {

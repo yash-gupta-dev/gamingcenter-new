@@ -22,7 +22,7 @@ const OTPVerification = () => {
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useOTPVerificationForm();
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const OTPVerification = () => {
 
     const onModalClose = () => {
         setModalOpen(false)
-        !isError && navigate('/reset-password', {
+        isValid && !isError && navigate('/reset-password', {
             state: {
                 resetToken: state.resetToken,
                 userId

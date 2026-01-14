@@ -19,7 +19,7 @@ const ResetPassword = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useResetPasswordForm();
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const ResetPassword = () => {
 
     const onModalClose = () => {
         setModalOpen(false)
-        !isError && navigate('/login')
+        isValid && !isError && navigate('/login')
     }
 
     if (isLoading) {
