@@ -32,15 +32,11 @@ export default (sequelize: Sequelize): typeof Otp => {
       createdAt: 'created_at',
       hooks: {
         afterCreate: async (data) => {
-          console.log(1);
-          
-          const filePath = path.join(__dirname, '..', 'src', 'views', 'mail', 'otp.ejs')
-          console.log(12, data.email);
-          
-          ejs.renderFile(filePath).then((r: string) => {
-            console.log(123);
+          const filePath = path.join(__dirname, '..', '..', '..', 'src', 'views', 'mail', 'otp.ejs')
+
+          ejs.renderFile(filePath, { otp: data.otp }).then((r: string) => {
             sendMail(data.email, "Verification OTP", null, r)
-          })
+          }).catch(console.error)
         }
       }
     }
