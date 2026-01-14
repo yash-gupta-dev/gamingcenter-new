@@ -2,7 +2,7 @@ export interface User {
     id: string,
     email: string;
     name: string;
-    token: string;
+    accessToken: string;
     refreshToken: string;
 }
 export interface SignUpRequest {

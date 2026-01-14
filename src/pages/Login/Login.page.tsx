@@ -36,11 +36,11 @@ const Login = () => {
 
     const onSubmit = async (data: LoginFormValues) => {
         const response = await login(data).unwrap();
-        await setItemToStorage("user", response)
+        setItemToStorage("user", response)
         dispatch(loginAction(response))
         setModalOpen(true)
     }
-
+    
     const onModalClose = () => {
         setModalOpen(false)
         navigate('/')

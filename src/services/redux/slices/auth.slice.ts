@@ -4,10 +4,10 @@ import type { User } from "../../../types/user.types";
 
 const initialState: User = {
   id: "",
-  token: "",
+  accessToken: "",
   refreshToken: "",
   email: '',
-  name: ''
+  name: '',
 };
 
 export const authSlice = createSlice({
@@ -15,11 +15,19 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<User>) => {
-      state = action.payload;
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       console.log("User added to Redux:", action.payload);
     },
     logout: (state) => {
-      state = { ...initialState };
+      state.id = "";
+      state.email = "";
+      state.name = "";
+      state.accessToken = "";
+      state.refreshToken = "";
       console.log("User logged out");
     },
   },

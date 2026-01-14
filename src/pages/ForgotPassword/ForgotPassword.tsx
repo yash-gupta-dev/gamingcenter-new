@@ -14,6 +14,7 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
     const [forgotPassword, { isError, isLoading, error: apiError }] = useResetPasswordRequestMutation()
     const [modalOpen, setModalOpen] = useState(false)
+    const [resetToken, setResetToken] = useState("");
     const [errorMessage, setErrorMessage] = useState<string | null>("");
 
     const {
@@ -33,16 +34,18 @@ const ForgotPassword = () => {
 
 
     const onSubmit = async (data: ForgotPasswordRequest) => {
-        await forgotPassword(data).unwrap();
+        const response = await forgotPassword(data).unwrap();        
+        setResetToken(response.resetToken)
         setModalOpen(true)
     }
 
     const onModalClose = () => {
         setModalOpen(false);
         const value = getValues('email');
-        navigate('/otp-verification', {
+        !isError && navigate('/otp-verification', {
             state: {
-                email: value
+                email: value,
+                resetToken
             }
         })
     }

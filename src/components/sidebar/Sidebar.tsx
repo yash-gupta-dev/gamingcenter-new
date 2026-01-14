@@ -59,7 +59,7 @@ export default function Sidebar() {
           })}
         </div>
 
-        {user.id && <div>
+        {user.accessToken && <div>
           <h3 className="pl-4 my-3  text-gray-light text-xs font-semibold">
             User Options
           </h3>

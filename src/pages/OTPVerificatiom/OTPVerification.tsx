@@ -13,9 +13,10 @@ import { Controller } from 'react-hook-form';
 
 const OTPVerification = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const [modalOpen, setModalOpen] = useState(false)
+    const { state } = useLocation();
     const [verifyEmail, { isError, isLoading, error: apiError }] = useVerifyEmailMutation()
+    const [modalOpen, setModalOpen] = useState(false)
+    const [userId, setUserId] = useState("");
     const [errorMessage, setErrorMessage] = useState<string | null>("");
 
     const {
@@ -33,14 +34,20 @@ const OTPVerification = () => {
     }, [isError])
 
     const onSubmit = async (data: { otp: string }) => {
-        const email = location.state.email;
-        await verifyEmail({ otp: data.otp, email }).unwrap();
+        const email = state.email;
+        const response = await verifyEmail({ otp: data.otp, email }).unwrap();
+        setUserId(response.userId)
         setModalOpen(true)
     }
 
     const onModalClose = () => {
         setModalOpen(false)
-        !isError && navigate('/login')
+        !isError && navigate('/reset-password', {
+            state: {
+                resetToken: state.resetToken,
+                userId
+            }
+        })
     }
 
     if (isLoading) {

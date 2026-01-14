@@ -36,13 +36,13 @@ const Navigator = () => {
     <div className="app-container">
       <Routes>
         {
-          commonRoutes.map((r) => {
+          (commonRoutes.concat(authRoutes)).map((r) => {
             return <Route path={r.path} element={<r.element />} />
           })
         }
 
         {
-          (user.token ? protectedRoutes : authRoutes).map((r) => {
+          user.accessToken && protectedRoutes.map((r) => {
             return <Route path={r.path} element={<r.element />} />
           })
         }

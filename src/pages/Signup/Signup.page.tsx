@@ -43,10 +43,10 @@ const Signup = () => {
         dispatch(login(response))
         setModalOpen(true)
     }
-
+    
     const onModalClose = () => {
         setModalOpen(false)
-        navigate('/')
+        !isError && navigate('/')
     }
 
     if (isLoading) {

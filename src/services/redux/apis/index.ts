@@ -8,9 +8,9 @@ export const api = createApi({
     baseUrl: "http://192.168.1.30:8000/" + 'api/',
     prepareHeaders: async (headers: Headers) => {
       const user = await getItemFromStorage<User>('user');
-      const token = user?.token;
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
+      const accessToken = user?.accessToken;
+      if (accessToken) {
+        headers.set("Authorization", `Bearer ${accessToken}`);
       }
       return headers;
     },
