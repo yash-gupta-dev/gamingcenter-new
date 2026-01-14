@@ -8,6 +8,7 @@ import { USER_AUTH_PROVIDERS } from "../constants/constants";
 import { generateAuthTokens, generateRefreshToken } from "../utils/token";
 import { Op } from "sequelize";
 import { addMinutes, currentate } from "../utils/date.utils";
+import { generateOtp } from "../utils/otp.utils";
 
 // SIGNUP
 const signUp = async (req: Request, res: Response, next: NextFunction) => {
@@ -49,13 +50,14 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
       transaction: tx,
     })
 
+    const { accessToken, refreshToken } = await generateAuthTokens(user.id);
+
     return res.status(201).json({
-      message: 'User registered successfully',
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email
-      }
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      accessToken,
+      refreshToken
     });
   })
 };
@@ -94,7 +96,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   await userAuth.save();
 
   return res.status(200).json({
-    message: 'Logged in successfully',
+    id: user.id,
+    email: email,
+    name: user.name,
     accessToken,
     refreshToken
   });
@@ -102,10 +106,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 // Verify OTP
 const verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
-  const { otp, email, phone } = req.body;
+  const { otp, email } = req.body;
 
   const schema = Joi.object({
-    otp: Joi.string().length(6).required(),
+    otp: Joi.string().length(4).required(),
     email: Joi.string().email().required(),
   })
 
@@ -120,18 +124,20 @@ const verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
 
   if (!otpData) return next(new UnauthorizedError("Invalid or Expired OTP"));
 
-  const user = await db.User.create({
-    email,
-    phone
-  })
+  const user = await db.User.findOne({ where: { email } })
 
-  await db.UserAuth.create({
-    user_id: user.id,
-    provider: USER_AUTH_PROVIDERS.EMAIL
-  })
+  // const user = await db.User.create({
+  //   email,
+  // })
+
+  // await db.UserAuth.create({
+  //   user_id: user.id,
+  //   provider: USER_AUTH_PROVIDERS.EMAIL
+  // })
 
   return res.status(200).json({
     message: 'OTP Verified Successfully',
+    userId: user.id
   });
 };
 
@@ -219,24 +225,27 @@ const forgetPassword = async (req: Request, res: Response, next: NextFunction) =
   const hash = await bcrypt.hash(resetToken, 10);
 
   if (user?.email) {
-    let token = await db.ForgetPassword.findOne({
+    await db.ForgetPassword.destroy({
       where: {
         user_id: user.id
       }
     });
 
-    if (token) await token.destroy();
-
     await db.ForgetPassword.create({
       token_hash: hash,
       user_id: user.id,
       expires_at: addMinutes(new Date(), 15)
+    });
+
+    await db.Otp.create({
+      email,
+      otp: generateOtp()
     })
   }
 
   return res.status(200).json({
     message: "Password Request Generated",
-    data: resetToken
+    resetToken
   });
 };
 

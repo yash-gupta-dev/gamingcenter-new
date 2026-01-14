@@ -14,7 +14,7 @@ userAuthRouter.post("/login-with-google", asyncHandler(userauthController.loginW
 userAuthRouter.post("/refresh-token", asyncHandler(userauthController.refreshAccessToken));
 
 userAuthRouter.post("/forgot-password", asyncHandler(userauthController.forgetPassword));
-userAuthRouter.post("/reset-forgot-password", asyncHandler(userauthController.resetForgetPassword));
+userAuthRouter.post("/reset-password", asyncHandler(userauthController.resetForgetPassword));
 
 export {
     userAuthRouter

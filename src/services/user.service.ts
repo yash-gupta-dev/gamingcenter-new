@@ -17,7 +17,6 @@ export async function verifyGoogleToken(idToken: string) {
     providerId: payload?.sub,
     email: payload?.email,
     name: payload?.name,
-    picture: payload?.picture,
     emailVerified: payload?.email_verified,
   };
 }
@@ -72,7 +71,6 @@ export async function resolveUser(authData: {
         {
           email: authData.email,
           name: authData.name,
-          picture: authData.avatar,
           is_email_verified: authData.emailVerified,
         },
         { transaction: tx }

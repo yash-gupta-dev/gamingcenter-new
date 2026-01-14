@@ -7,7 +7,6 @@ export interface UserAttributes {
   name?: string;
   email?: string;
   phone?: string;
-  picture?: string;
   is_email_verified: boolean;
   created_at?: Date;
   updated_at?: Date;
@@ -16,7 +15,7 @@ export interface UserAttributes {
 export interface UserCreationAttributes
   extends Optional<
     UserAttributes,
-    'id' | 'is_email_verified' | 'email' | 'name' | 'picture'
+    'id' | 'is_email_verified' | 'email' | 'name'
   > { }
 
 export class User
@@ -25,7 +24,6 @@ export class User
   public id!: number;
   public name?: string;
   public email?: string;
-  public picture?: string;
   public is_email_verified!: boolean;
 
   public readonly created_at!: Date;

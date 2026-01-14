@@ -23,10 +23,6 @@ export default (sequelize: Sequelize): typeof User => {
         unique: true,
         allowNull: true
       },
-      picture: {
-        type: DataTypes.STRING,
-        allowNull: true
-      },
       is_email_verified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
