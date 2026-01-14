@@ -9,7 +9,7 @@ import { getApiErrorMessage } from '../../utils/errors.utils';
 import { setItemToStorage } from '../../utils/localstorage.utils';
 import { useAppDispatch } from '../../services/redux/store';
 import { login as loginAction } from '../../services/redux/slices/auth.slice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -70,7 +70,7 @@ const Login = () => {
             {/* Card */}
             <div className="border lg:w-1/3 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                 <div className="space-y-4">
-                    <a href="/api/login">
+                    <Link to="/api/login">
                         <button className="w-full h-12 bg-white text-primary hover:bg-gray-200 font-bold transition-all group">
                             <span className="flex items-center justify-center gap-2">
                                 <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ const Login = () => {
                                 Continue with Google
                             </span>
                         </button>
-                    </a>
+                    </Link>
 
                     <div className="py-4 relative">
                         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
@@ -107,7 +107,7 @@ const Login = () => {
                                 className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
                             />
                             {errors.password && <p className='text-custom-red text-xs'>{errors.password.message}</p>}
-                            <a className='text-secondary text-xs' href='/forgot-password'>Forgot Password ?</a>
+                            <Link className='text-secondary text-xs' to='/forgot-password'>Forgot Password ?</Link>
                         </div>
                         <button className="w-full h-12 bg-secondary hover:bg-secondary/50 text-black font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,243,255,0.3)]" type='submit'>
                             Log In
@@ -116,7 +116,7 @@ const Login = () => {
                 </div>
 
                 <div className="mt-6 text-center text-sm text-muted-foreground">
-                    Don't have an account? <a href="/signup" className="text-secondary hover:underline font-bold">Sign Up</a>
+                    Don't have an account? <Link to="/signup" className="text-secondary hover:underline font-bold">Sign Up</Link>
                 </div>
             </div>
         </div>

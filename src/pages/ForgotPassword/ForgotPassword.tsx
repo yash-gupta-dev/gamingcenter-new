@@ -1,7 +1,7 @@
 import { Gamepad2, X } from 'lucide-react'
 
 import Loader from '../../loader/Loader'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useResetPasswordRequestMutation } from '../../services/redux/apis/auth';
 import type { ForgotPasswordRequest } from '../../types/user.types';
 import Modal from '../../components/modal/Modal';
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
                 </div>
 
                 <div className="mt-6 text-center text-sm text-muted-foreground">
-                    <a href="/login" className="text-secondary hover:underline font-bold">Back to Login</a>
+                    <Link to="/login" className="text-secondary hover:underline font-bold">Back to Login</Link>
                 </div>
             </div>
         </div>

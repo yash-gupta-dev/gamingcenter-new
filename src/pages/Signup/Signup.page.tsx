@@ -5,7 +5,7 @@ import Loader from '../../loader/Loader'
 import { useSignupForm, type SignupFormValues } from './signup.schema';
 import Modal from '../../components/modal/Modal';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setItemToStorage } from '../../utils/localstorage.utils';
 import { getApiErrorMessage } from '../../utils/errors.utils';
 import { useAppDispatch } from '../../services/redux/store';
@@ -73,7 +73,7 @@ const Signup = () => {
             {/* Card */}
             <div className="border lg:w-1/3 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                 <div className="space-y-4">
-                    <a href="/api/login">
+                    <Link to="/api/login">
                         <button className="w-full h-12 bg-white text-primary hover:bg-gray-200 font-bold transition-all group">
                             <span className="flex items-center justify-center gap-2">
                                 <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@ const Signup = () => {
                                 Continue with Google
                             </span>
                         </button>
-                    </a>
+                    </Link>
 
                     <div className="py-4 relative">
                         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/10"></div></div>
@@ -136,7 +136,7 @@ const Signup = () => {
                 </div>
 
                 <div className="mt-6 text-center text-sm text-muted-foreground">
-                    Already have an account? <a href="/login" className="text-secondary hover:underline font-bold">Log In</a>
+                    Already have an account? <Link to="/login" className="text-secondary hover:underline font-bold">Log In</Link>
                 </div>
             </div>
         </div>

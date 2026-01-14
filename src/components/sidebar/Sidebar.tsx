@@ -2,6 +2,7 @@ import { categories, NAV_ITEMS, userOptions } from "../../data/data";
 import { useAppDispatch, useAppSelector } from "../../services/redux/store";
 import { clearStorage } from "../../utils/localstorage.utils";
 import { logout as logoutAction } from '../../services/redux/slices/auth.slice';
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const user = useAppSelector(state => state.auth);
@@ -19,7 +20,7 @@ export default function Sidebar() {
           {NAV_ITEMS.map((item) => {
             const isActive = window.location.pathname === item.href;
             return (
-              <a key={item.href} href={item.href}>
+              <Link key={item.href} to={item.href}>
                 <div
                   className="flex items-center pr-3 pl-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group relative overflow-hidden text-muted-foreground hover:text-foreground hover:bg-white/5"
                 >
@@ -31,7 +32,7 @@ export default function Sidebar() {
                     {item.label}
                   </span>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -42,7 +43,7 @@ export default function Sidebar() {
           </h3>
           {categories.map((item) => {
             return (
-              <a key={item.title} href={"#"}>
+              <Link key={item.title} to={'#'}>
                 <div
                   className="flex items-center pr-3 pl-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group relative overflow-hidden text-muted-foreground hover:text-foreground hover:bg-white/5"
                 >
@@ -54,7 +55,7 @@ export default function Sidebar() {
                     {item.title}
                   </span>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -65,7 +66,7 @@ export default function Sidebar() {
           </h3>
           {userOptions.map((item) => {
             return (
-              <a key={item.title} href={item.path || '#'}>
+              <Link key={item.title} to={item.path || '#'}>
                 <div
                   className="flex items-center pr-3 pl-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group relative overflow-hidden text-muted-foreground hover:text-foreground hover:bg-white/5"
                   onClick={item.title === 'Log Out' ? logout : () => { }}
@@ -78,7 +79,7 @@ export default function Sidebar() {
                     {item.title}
                   </span>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>}

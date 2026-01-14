@@ -1,5 +1,6 @@
 import { Search, Bell, Gamepad2 } from "lucide-react";
 import { useAppSelector } from "../../services/redux/store";
+import { Link } from "react-router-dom";
 
 export default function Header() {
     const user = useAppSelector(state => state.auth);
@@ -41,12 +42,12 @@ export default function Header() {
 
                 {user.id ? <img className="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150?img=7" alt="Default avatar" />
                     : <div className="flex items-center gap-3">
-                        <a href="/login" className="bg-secondary py-1 px-2 rounded-sm">
+                        <Link to={`/login`} className="bg-secondary py-1 px-2 rounded-sm">
                             <button className="text-sm text-primary font-bold hover:text-foreground">Log In</button>
-                        </a>
-                        <a href="/signup">
+                        </Link>
+                        <Link to={`/signup`}>
                             <button className="text-sm hover:text-foreground">Sign Up</button>
-                        </a>
+                        </Link>
                     </div>}
             </div>
         </header>
