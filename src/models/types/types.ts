@@ -204,6 +204,36 @@ export class Notification
   public readonly sent_at: Date;
 }
 
+// Game
+export interface GameAttributes {
+  id: number;
+  name: string;
+  description: string;
+  gameEngine: string;
+  mobile_support?: boolean;
+  multiplayer?: boolean;
+}
+
+export interface GameCreationAttributes
+  extends Optional<
+    GameAttributes,
+    'id'
+  > { }
+
+export class Game
+  extends Model<GameAttributes, GameCreationAttributes>
+  implements GameAttributes {
+  public id!: number;
+  public name!: string;
+  public description!: string;
+  public gameEngine!: string;
+  public mobile_support: boolean;
+  public multiplayer: boolean;
+
+  public readonly created_at: Date;
+  public readonly updated_at: Date;
+}
+
 
 export interface DB {
   sequelize: Sequelize;
@@ -214,6 +244,7 @@ export interface DB {
   RefreshToken: typeof RefreshToken;
   ForgetPassword: typeof ForgetPassword;
   Otp: typeof Otp;
+  Game: typeof Game;
   Notification: ModelStatic<Model>;
   Admin: ModelStatic<Model>;
 }
