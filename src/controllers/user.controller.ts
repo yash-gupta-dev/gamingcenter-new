@@ -162,7 +162,7 @@ const loginWithGoogle = async (req: Request, res: Response, next: NextFunction) 
       grant_type: "authorization_code",
       redirect_uri: oauth_google.redirect_uri,
     },
-  };  
+  };
 
   const oauthResponse = await axios.post(
     oauthRequest.url.toString(),
@@ -171,12 +171,12 @@ const loginWithGoogle = async (req: Request, res: Response, next: NextFunction) 
   )
 
   const oauthResponseData = oauthResponse.data;
-  
+
   const googleUser = await verifyGoogleToken(oauthResponseData.id_token);
   const user = await resolveUser({ ...googleUser, provider: USER_AUTH_PROVIDERS.GOOGLE });
-  
+
   const { accessToken, refreshToken } = await generateAuthTokens(user.id);
-  res.json({ 
+  res.json({
     id: user.id,
     email: user.email,
     name: user.name,
@@ -317,10 +317,42 @@ const resetForgetPassword = async (req: Request, res: Response, next: NextFuncti
     }
   });
 
-  passwordResetToken.used_at = currentate()
+  passwordResetToken.used_at = currentate();
+
+  await passwordResetToken.save()
 
   return res.status(200).json({
     message: "Password Reset Successfull",
+  });
+};
+
+// Add Game
+const addGame = async (req: Request, res: Response, next: NextFunction) => {
+  const { name } = req.body;
+
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string().required(),
+    gameEngine: Joi.string().required(),
+    mobileSupport: Joi.boolean(),
+    multiplayer: Joi.boolean(),
+  });
+
+  await schema.validateAsync(req.body);
+
+  const gameWithSameName = await db.Game.findOne({
+    attributes: ['id'],
+    where: {
+      name
+    }
+  });
+
+  if (gameWithSameName) return next(new UnauthorizedError("Game with same name already exists"));
+
+  await db.Game.create(req.body);
+
+  return res.status(200).json({
+    message: "Game created Successfull",
   });
 };
 
@@ -332,4 +364,5 @@ export default {
   refreshAccessToken,
   forgetPassword,
   resetForgetPassword,
+  addGame
 }
