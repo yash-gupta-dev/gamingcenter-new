@@ -1,6 +1,6 @@
 import Ad from "../../components/ads/Ad";
 import Category from "../../components/category/Category";
-import { categories } from "../../data/data";
+import { categories } from "../../constants/constants";
 import AppWrapper from "../../HOC/AppWrapper";
 import SectionWrapper from "../../HOC/SectionWrapper";
 import FeaturedGame from "./components/FeaturedGame";
@@ -62,7 +62,7 @@ const Home = () => {
 
         <Category title={"All Games"} selected/>
         {
-          categories.map(c => <Category title={c.title} selected={false}/>)
+          categories.map(c => <Category title={c.title} selected={false} key={c.title}/>)
         }
       </div>
 

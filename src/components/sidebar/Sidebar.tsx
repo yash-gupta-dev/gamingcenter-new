@@ -1,4 +1,4 @@
-import { categories, NAV_ITEMS, userOptions } from "../../data/data";
+import { categories, NAV_ITEMS, userOptions } from "../../constants/constants";
 import { useAppDispatch, useAppSelector } from "../../services/redux/store";
 import { clearStorage } from "../../utils/localstorage.utils";
 import { logout as logoutAction } from '../../services/redux/slices/auth.slice';

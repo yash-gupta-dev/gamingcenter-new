@@ -1,3 +1,4 @@
+import AddGame from "../pages/AddGame/AddGame.page";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import Game from "../pages/Game/Game.page";
 import Home from "../pages/Home/Home.page";
@@ -5,6 +6,8 @@ import Login from "../pages/Login/Login.page";
 import OTPVerification from "../pages/OTPVerificatiom/OTPVerification";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import Signup from "../pages/Signup/Signup.page";
+import { Home as HomeIcon, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain, User, Power, Plus } from "lucide-react";
+
 
 export const commonRoutes = [
     {
@@ -20,7 +23,7 @@ export const commonRoutes = [
 export const protectedRoutes = [
     {
         path: '/add-game',
-        element: Game
+        element: AddGame
     },
 ]
 
@@ -61,3 +64,56 @@ export const oauth_google: Record<GOOGLE_AUTH_KEYS, string> = {
     redirect_uri: import.meta.env.VITE_GOOGLE_CLIENT_REDIRECT_URI || "",
     scopes: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 }
+
+export const categories = [
+  {
+    Icon: Zap,
+    title: 'Action'
+  },
+  {
+    Icon: Puzzle,
+    title: 'Puzzle'
+  },
+  {
+    Icon: CarFront,
+    title: 'Racing'
+  },
+  {
+    Icon: Trophy,
+    title: 'Sports'
+  },
+  {
+    Icon: Gamepad,
+    title: 'Arcade'
+  },
+  {
+    Icon: Brain,
+    title: 'Strategy'
+  }
+];
+
+export const userOptions = [
+  {
+    Icon: Plus,
+    title: 'Add Game',
+    path: '/add-game'
+  },
+  {
+    Icon: User,
+    title: 'Profile',
+    path: '/profile'
+  },
+  {
+    Icon: Power,
+    title: 'Log Out',
+    path: null
+  }
+];
+
+export const NAV_ITEMS = [
+  { icon: HomeIcon, label: "Home", href: "/" },
+  { icon: Circle, label: "New Games", href: "/new-games" },
+  { icon: TrendingUp, label: "Trending", href: "/trending" },
+  { icon: RotateCcw, label: "Recently Played", href: "/recently-deleted" },
+];
+
