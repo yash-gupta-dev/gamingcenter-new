@@ -4,11 +4,12 @@ import Joi from "joi";
 import bcrypt from 'bcrypt'
 import { BadRequestError, NotFoundError, UnauthorizedError } from "../utils/ApiError";
 import { resolveUser, verifyGoogleToken } from "../services/user.service";
-import { USER_AUTH_PROVIDERS } from "../constants/constants";
+import { oauth_google, USER_AUTH_PROVIDERS } from "../constants/constants";
 import { generateAuthTokens, generateRefreshToken } from "../utils/token";
 import { Op } from "sequelize";
 import { addMinutes, currentate } from "../utils/date.utils";
 import { generateOtp } from "../utils/otp.utils";
+import axios from "axios";
 
 // SIGNUP
 const signUp = async (req: Request, res: Response, next: NextFunction) => {
@@ -144,20 +145,44 @@ const verifyOtp = async (req: Request, res: Response, next: NextFunction) => {
 
 // LOGIN WITH GOOGLE
 const loginWithGoogle = async (req: Request, res: Response, next: NextFunction) => {
-  const { idToken } = req.body;
+  const { code } = req.body;
 
   const schema = Joi.object({
-    idToken: Joi.string().required(),
-    deviceId: Joi.string().required(),
+    code: Joi.string().required(),
   });
 
   await schema.validateAsync(req.body);
 
-  const googleUser = await verifyGoogleToken(idToken);
-  const user = await resolveUser({ ...googleUser, provider: USER_AUTH_PROVIDERS.GOOGLE });
+  const oauthRequest = {
+    url: new URL("https://oauth2.googleapis.com/token"),
+    params: {
+      client_id: oauth_google.client_id,
+      client_secret: oauth_google.client_secret,
+      code,
+      grant_type: "authorization_code",
+      redirect_uri: oauth_google.redirect_uri,
+    },
+  };  
 
+  const oauthResponse = await axios.post(
+    oauthRequest.url.toString(),
+    null,
+    { params: oauthRequest.params }
+  )
+
+  const oauthResponseData = oauthResponse.data;
+  
+  const googleUser = await verifyGoogleToken(oauthResponseData.id_token);
+  const user = await resolveUser({ ...googleUser, provider: USER_AUTH_PROVIDERS.GOOGLE });
+  
   const { accessToken, refreshToken } = await generateAuthTokens(user.id);
-  res.json({ accessToken, refreshToken });
+  res.json({ 
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    accessToken,
+    refreshToken
+  });
 };
 
 

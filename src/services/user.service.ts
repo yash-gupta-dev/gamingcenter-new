@@ -6,19 +6,25 @@ import { User } from "../models/types/types";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export async function verifyGoogleToken(idToken: string) {
-  const ticket = await client.verifyIdToken({
-    idToken,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
 
-  const payload = ticket.getPayload();
+    const payload = ticket.getPayload();
 
-  return {
-    providerId: payload?.sub,
-    email: payload?.email,
-    name: payload?.name,
-    emailVerified: payload?.email_verified,
-  };
+    return {
+      providerId: payload?.sub,
+      email: payload?.email,
+      name: payload?.name,
+      emailVerified: payload?.email_verified,
+    };
+
+  } catch (error) {
+    console.log(error);
+
+  }
 }
 
 
@@ -31,64 +37,67 @@ export async function resolveUser(authData: {
   emailVerified: boolean;
 }) {
   return sequelize.transaction(async (tx) => {
-    /**
-     * 1. Provider already exists → login
-     */
-    const existingProvider = await db.UserAuth.findOne({
-      where: {
-        provider: authData.provider,
-        provider_id: authData.providerId,
-      },
-      include: [
-        {
-          model: User,
-        }
-      ],
-      transaction: tx,
-    });
-
-    if (existingProvider) {
-      return existingProvider.user!;
-    }
-
-    /**
-     * 2. Try linking by verified email
-     */
-    let user: User | null = null;
-
-    if (authData.email && authData.emailVerified) {
-      user = await db.User.findOne({
-        where: { email: authData.email },
+      /**
+       * 1. Provider already exists → login
+       */
+      const existingProvider = await db.UserAuth.findOne({
+        where: {
+          provider: authData.provider,
+          provider_id: authData.providerId,
+        },
+        include: [
+          {
+            model: User,
+            as: 'user'
+          }
+        ],
         transaction: tx,
       });
-    }
+      console.log(existingProvider);
 
-    /**
-     * 3. Create user if not found
-     */
-    if (!user) {
-      user = await db.User.create(
+
+      if (existingProvider) {
+        return existingProvider.user!;
+      }
+
+      /**
+       * 2. Try linking by verified email
+      */
+      let user: User | null = null;
+
+      if (authData.email && authData.emailVerified) {
+        user = await db.User.findOne({
+          where: { email: authData.email },
+          transaction: tx,
+        });
+      }
+
+      /**
+       * 3. Create user if not found
+      */
+      if (!user) {
+        user = await db.User.create(
+          {
+            email: authData.email,
+            name: authData.name,
+            is_email_verified: authData.emailVerified,
+          },
+          { transaction: tx }
+        );
+      }
+
+      /**
+       * 4. Link provider
+      */
+      await db.UserAuth.create(
         {
-          email: authData.email,
-          name: authData.name,
-          is_email_verified: authData.emailVerified,
+          provider: authData.provider,
+          provider_id: authData.providerId,
+          user_id: user.id,
         },
         { transaction: tx }
       );
-    }
 
-    /**
-     * 4. Link provider
-     */
-    await db.UserAuth.create(
-      {
-        provider: authData.provider,
-        provider_id: authData.providerId,
-        user_id: user.id,
-      },
-      { transaction: tx }
-    );
-
-    return user;
+      return user;
   });
 }
