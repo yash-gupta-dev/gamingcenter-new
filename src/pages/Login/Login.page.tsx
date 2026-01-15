@@ -32,6 +32,8 @@ const Login = () => {
             const errorMessage = getApiErrorMessage(apiError);
             setErrorMessage(errorMessage);
             setModalOpen(true)
+        } else {
+            setErrorMessage("")
         }
     }, [isError])
 

@@ -34,7 +34,7 @@ const OTPInput = ({ length = 4, onChange }: InputProps) => {
     };
 
     return (
-        <div className={`grid grid-cols-4 gap-5`}>
+        <div className={`grid grid-cols-4 gap-8`}>
             {Array.from({ length }, (_, index) => (
                 <input
                     key={index}
@@ -45,7 +45,7 @@ const OTPInput = ({ length = 4, onChange }: InputProps) => {
                     ref={(ref) => {
                         inputRef.current[index] = ref as HTMLInputElement
                     }}
-                    className={`text-center bg-primary border border-border focus:border-secondary py-6 outline-none caret-transparent`}
+                    className={`text-center bg-primary border border-border focus:border-secondary py-8 outline-none caret-transparent w-full`}
                     style={{ marginRight: index === length - 1 ? '0' : '10px' }}
                 />
             ))}

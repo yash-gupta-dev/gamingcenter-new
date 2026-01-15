@@ -15,7 +15,7 @@ export const commonRoutes = [
         element: Home
     },
     {
-        path: '/game/:id',
+        path: '/game',
         element: Game
     }
 ]
@@ -49,6 +49,49 @@ export const authRoutes = [
         element: ResetPassword
     }
 ]
+
+export const GAMES = [
+    {
+      title: 'God Of War',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Ghost Of Tshushima',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Red Dead Redemption',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Far Cry',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Call Of Duty',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Battlefield 6',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'God Hand',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Forza',
+      rating: 4.5,
+      plays: '2.5M'
+    }
+  ];
 
 type GOOGLE_AUTH_KEYS =
     | "client_id"

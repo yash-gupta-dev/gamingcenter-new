@@ -1,4 +1,3 @@
-import Ad from "../../components/ads/Ad";
 import Category from "../../components/category/Category";
 import { categories } from "../../constants/constants";
 import AppWrapper from "../../HOC/AppWrapper";
@@ -46,23 +45,33 @@ const Home = () => {
       title: 'Forza',
       rating: 4.5,
       plays: '2.5M'
+    },
+    {
+      title: 'Tekken',
+      rating: 4.5,
+      plays: '2.5M'
+    },
+    {
+      title: 'Ghost of Tsushima',
+      rating: 4.5,
+      plays: '2.5M'
     }
   ];
 
   return <AppWrapper>
     <div className="flex flex-col">
-      <Ad />
-
       {/* featured Game */}
       <FeaturedGame />
 
       {/* Continue Playng */}
-      <SectionWrapper games={games.slice(0, 4)} title="Continue Playing" showDetails={false} />
+      <SectionWrapper games={games} title="Continue Playing" showDetails={false} />
+
+      {/* Categories */}
       <div className="flex gap-x-5 mb-7">
 
-        <Category title={"All Games"} selected/>
+        <Category title={"All Games"} selected />
         {
-          categories.map(c => <Category title={c.title} selected={false} key={c.title}/>)
+          categories.map(c => <Category title={c.title} selected={false} key={c.title} />)
         }
       </div>
 

@@ -24,7 +24,7 @@ const FeaturedGame = () => {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis dolorem accusamus illo autem et unde nulla dolor nam, expedita id sequi pariatur labore est nesciunt corporis aliquid alias illum ut.
                 </p>
                 <div className="flex gap-4">
-                    <Link to={`/game/1`}>
+                    <Link to={`/game`}>
                         <button className="flex items-center h-12 px-8 text-sm bg-secondary text-black font-bold uppercase transition-all duration-300 rounded-3xl">
                             <Play fill='' size={15} className='mr-1'/>
                             <span>Play Now</span>
