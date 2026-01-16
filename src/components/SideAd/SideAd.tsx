@@ -2,7 +2,7 @@ import React from 'react'
 
 const SideAd = () => {
     return (
-        <aside className="w-16 pt-20 lg:w-64 h-screen float-end right-0 top-0 bg-card z-40 flex flex-col transition-all duration-300">
+        <aside className="hidden lg:flex w-16 pt-20 lg:w-64 h-screen float-end right-0 top-0 bg-card z-40 flex-col transition-all duration-300">
             <div className="w-full h-full place-items-center border-l border-border">
 
                 <div className="p-8 h-4/5 place-items-center mb-7 bg-border rounded-md">

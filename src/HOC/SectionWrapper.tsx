@@ -22,7 +22,7 @@ const SectionWrapper = ({ games, title, showDetails }: Props) => {
                     <h2 className="text-xl text-white font-display">{title}</h2>
                 </div>
             </div>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                 {games?.map((game) => (
                     <GameCard key={game.title} title={game.title} plays={game.plays} rating={game.rating} showDetails={showDetails}/>
                 ))}

@@ -19,8 +19,8 @@ const AppWrapper = ({ children }: Props) => {
                 onClose={() => setSidebarOpen(false)}
             />
             {location.pathname !== "/" && <SideAd />}
-            <main className="h-screen flex pt-20 px-3 border-r border-border md:px-6 transition-all duration-300 overflow-y-auto">
-                <div className='lg:w-60 h-full'/>
+            <main className="pt-16 px-3 pb-4 transition-all lg:ml-60">
+                <div className='lg:w-60 pt-4 h-full' />
                 {children}
             </main>
 

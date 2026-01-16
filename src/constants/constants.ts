@@ -6,7 +6,7 @@ import Login from "../pages/Login/Login.page";
 import OTPVerification from "../pages/OTPVerificatiom/OTPVerification";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import Signup from "../pages/Signup/Signup.page";
-import { Home as HomeIcon, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain, User, Power, Plus } from "lucide-react";
+import { Home as HomeIcon, TrendingUp, Circle, RotateCcw, Zap, Puzzle, CarFront, Trophy, Gamepad, Brain, User, Power, Plus, UserRound } from "lucide-react";
 
 
 export const commonRoutes = [
@@ -157,6 +157,7 @@ export const NAV_ITEMS = [
   { icon: HomeIcon, label: "Home", href: "/" },
   { icon: Circle, label: "New Games", href: "/new-games" },
   { icon: TrendingUp, label: "Trending", href: "/trending" },
+  { icon: UserRound, label: "Most Engaging", href: "/most-engaging" },
   { icon: RotateCcw, label: "Recently Played", href: "/recently-deleted" },
 ];
 

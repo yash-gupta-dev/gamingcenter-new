@@ -75,7 +75,7 @@ const AddGame = () => {
                 </div>
 
                 {/* Card */}
-                <div className="border lg:w-1/2 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
+                <div className="border w-full lg:w-1/2 lg:min-w-96 md:w-2/3 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                     <div className="space-y-4">
                         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
                             <div className="space-y-2">
