@@ -1,12 +1,85 @@
-import { Search, Bell, Gamepad2 } from "lucide-react";
+import { Search, Bell, Gamepad2, Menu } from "lucide-react";
 import { useAppSelector } from "../../services/redux/store";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+interface Props {
+    onMenuClick: () => void;
+}
+
+
+export default function Header({ onMenuClick }: Props) {
     const user = useAppSelector(state => state.auth);
 
     return (
-        <header className="h-16 fixed top-0 right-0 left-0 bg-background/80 backdrop-blur-md border-b border-border z-30 px-6 flex items-center justify-between">
+        <header className="fixed top-0 left-0 right-0 z-20 h-16 bg-background/80 backdrop-blur-md border-b border-border px-4 md:px-6">
+            <div className="h-full flex items-center justify-between">
+
+                {/* Mobile Menu Button */}
+                <button className="lg:hidden p-2 rounded-lg hover:bg-white/5" onClick={onMenuClick}>
+                    <Menu className="w-6 h-6 text-foreground" />
+                </button>
+
+                {/* Left: Logo */}
+                <div className="hidden lg:flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <Gamepad2 className="w-6 h-6 text-[var(--secondary)]" />
+                    </div>
+
+                    {/* Hide text on mobile */}
+                    <span className="font-display font-bold text-xl text-foreground tracking-widest">
+                        GAMECENTER
+                    </span>
+                </div>
+
+                {/* Center: Search (hidden on mobile) */}
+                <div className="hidden md:flex flex-1 max-w-lg relative mx-6">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Search className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search games..."
+                        className="w-full pl-10 pr-3 py-2 text-sm rounded-3xl border border-border bg-gray text-foreground placeholder-muted-foreground outline-none shadow-inner"
+                    />
+                </div>
+
+                {/* Right: Actions */}
+                <div className="flex items-center gap-3">
+
+                    {/* Notifications (hide on small screens) */}
+                    <button className="relative hidden sm:flex p-2 text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5">
+                        <Bell className="w-5 h-5" />
+                        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#bc13fe]" />
+                    </button>
+
+                    {/* User / Auth */}
+                    {user.id ? (
+                        <img
+                            src="https://i.pravatar.cc/150?img=7"
+                            alt="User avatar"
+                            className="w-9 h-9 rounded-full"
+                        />
+                    ) : (
+                        <div className="hidden sm:flex items-center gap-3">
+                            <Link to="/login">
+                                <button className="bg-secondary px-3 py-1 rounded-sm text-sm font-bold text-primary hover:text-foreground">
+                                    Log In
+                                </button>
+                            </Link>
+                            <Link to="/signup">
+                                <button className="text-sm hover:text-foreground">
+                                    Sign Up
+                                </button>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </header>
+    )
+
+    return (
+        <header className="h-16 fixed top-0 right-0 left-0 bg-background/80 backdrop-blur-md border-b border-border z-30 px-5 flex items-center justify-between">
 
             {/* Logo */}
             <div className="h-16 flex items-center justify-center lg:justify-start border-b border-border">
@@ -19,17 +92,15 @@ export default function Header() {
             </div>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-lg">
-                <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Search className="h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                    </div>
-                    <input
-                        type="text"
-                        className="block w-full pl-10 pr-3 py-2 border border-border rounded-3xl leading-5 bg-gray text-foreground placeholder-muted-foreground outline-none transition-all duration-200 sm:text-sm shadow-inner"
-                        placeholder="Search games..."
-                    />
+            <div className="flex-1 max-w-lg relative group:">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                 </div>
+                <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-2 border border-border rounded-3xl leading-5 bg-gray text-foreground placeholder-muted-foreground outline-none transition-all duration-200 sm:text-sm shadow-inner"
+                    placeholder="Search games..."
+                />
             </div>
 
             {/* Right Actions */}
