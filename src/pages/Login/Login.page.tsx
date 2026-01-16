@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../services/redux/store';
 import { login as loginAction } from '../../services/redux/slices/auth.slice';
 import { Link, useNavigate } from 'react-router-dom';
 import { onGoogleLogin } from '../../utils/googleAuth.utils';
+import TextInput from '../../components/TextInput/TextInput';
 
 
 const Login = () => {
@@ -92,25 +93,20 @@ const Login = () => {
                     </div>
 
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <div className="space-y-2">
-                            <input
-                                {...register('email')}
-                                type="text"
-                                placeholder="Email address"
-                                className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
+                            <TextInput
+                                register={register}
+                                name={'email'}
+                                placeholder='Email Address'
+                                error={errors.email}
                             />
-                            {errors.email && <p className='text-custom-red text-xs'>{errors.email.message}</p>}
-                        </div>
-                        <div className="space-y-2">
-                            <input
-                                {...register('password')}
-                                type="password"
-                                placeholder="Enter Password"
-                                className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
+                            <TextInput
+                                register={register}
+                                name={'password'}
+                                placeholder='Enter Password'
+                                error={errors.password}
+                                type='password'
                             />
-                            {errors.password && <p className='text-custom-red text-xs'>{errors.password.message}</p>}
                             <Link className='text-secondary text-xs' to='/forgot-password'>Forgot Password ?</Link>
-                        </div>
                         <button className="w-full h-12 bg-secondary hover:bg-secondary/50 text-black font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,243,255,0.3)]" type='submit'>
                             Log In
                         </button>

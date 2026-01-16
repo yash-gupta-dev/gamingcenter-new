@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useResetPasswordMutation } from '../../services/redux/apis/auth'
 import { useResetPasswordForm } from './resetPassword.schema'
 import { getApiErrorMessage } from '../../utils/errors.utils'
+import TextInput from '../../components/TextInput/TextInput'
 
 
 const ResetPassword = () => {
@@ -65,24 +66,18 @@ const ResetPassword = () => {
             <div className="border lg:w-1/3 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                 <div className="space-y-4">
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <div className="space-y-2">
-                            <input
-                                {...register('password')}
-                                type="password"
-                                placeholder="Enter Password"
-                                className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
-                            />
-                            {errors.password && <p className='text-custom-red text-xs'>{errors.password.message}</p>}
-                        </div>
-                        <div className="space-y-2">
-                            <input
-                                {...register('confirmPassword')}
-                                type="password"
-                                placeholder="Confirm Password"
-                                className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
-                            />
-                            {errors.confirmPassword && <p className='text-custom-red text-xs'>{errors.confirmPassword.message}</p>}
-                        </div>
+                        <TextInput
+                            register={register}
+                            name={'password'}
+                            placeholder='Enter Password'
+                            error={errors.password}
+                        />
+                        <TextInput
+                            register={register}
+                            name={'confirmPassword'}
+                            placeholder='Confirm Password'
+                            error={errors.confirmPassword}
+                        />
                         <button className="w-full h-12 bg-secondary hover:bg-secondary/50 text-black font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,243,255,0.3)]" type='submit'>
                             Reset password
                         </button>

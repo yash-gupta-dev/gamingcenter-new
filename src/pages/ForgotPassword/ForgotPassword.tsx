@@ -8,6 +8,7 @@ import Modal from '../../components/modal/Modal';
 import { useEffect, useState } from 'react';
 import { getApiErrorMessage } from '../../utils/errors.utils';
 import { useForgotPasswordForm } from './forgotPassword.schema';
+import TextInput from '../../components/TextInput/TextInput';
 
 
 const ForgotPassword = () => {
@@ -34,7 +35,7 @@ const ForgotPassword = () => {
 
 
     const onSubmit = async (data: ForgotPasswordRequest) => {
-        const response = await forgotPassword(data).unwrap();        
+        const response = await forgotPassword(data).unwrap();
         setResetToken(response.resetToken)
         setModalOpen(true)
     }
@@ -75,15 +76,12 @@ const ForgotPassword = () => {
             <div className="border lg:w-1/3 md:w-1/2 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                 <div className="space-y-4">
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <div className="space-y-2">
-                            <input
-                                {...register('email')}
-                                type="text"
-                                placeholder="Email address"
-                                className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
-                            />
-                            {errors.email && <p className='text-custom-red text-xs'>{errors.email.message}</p>}
-                        </div>
+                        <TextInput
+                            register={register}
+                            name={'email'}
+                            placeholder='Email Address'
+                            error={errors.email}
+                        />
                         <button className="w-full h-12 bg-secondary hover:bg-secondary/50 text-black font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,243,255,0.3)]" type='submit'>
                             Continue
                         </button>

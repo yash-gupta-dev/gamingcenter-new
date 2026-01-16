@@ -13,6 +13,7 @@ import Checkbox from '../../components/checkbox/Checkbox';
 import FileInput from '../../components/fileInput/FileInput';
 import { GAME_MEME_TYPE, GIF_MEME_TYPE, IMAGE_MEME_TYPE } from '../../constants/game.constants';
 import { Controller } from 'react-hook-form';
+import TextInput from '../../components/TextInput/TextInput';
 
 const AddGame = () => {
     const navigate = useNavigate();
@@ -78,24 +79,19 @@ const AddGame = () => {
                 <div className="border w-full lg:w-1/2 lg:min-w-96 md:w-2/3 border-border p-8 rounded-2xl shadow-sm shadow-gray">
                     <div className="space-y-4">
                         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-                            <div className="space-y-2">
-                                <input
-                                    {...register('name')}
-                                    type="text"
-                                    placeholder="Name Of the Game"
-                                    className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
-                                />
-                                {errors.name && <p className='text-custom-red text-xs'>{errors.name.message}</p>}
-                            </div>
-                            <div className="space-y-2">
-                                <input
-                                    {...register('description')}
-                                    type="text"
-                                    placeholder="Game Description"
-                                    className="w-full h-12 px-4 bg-primary border border-white/10 rounded-lg focus:ring-1 focus:ring-secondary focus:outline-none text-white placeholder-muted-foreground transition-all"
-                                />
-                                {errors.description && <p className='text-custom-red text-xs'>{errors.description.message}</p>}
-                            </div>
+                            <TextInput
+                                register={register}
+                                name={'name'}
+                                placeholder='Name of the Game'
+                                error={errors.name}
+                            />
+                            <TextInput
+                                register={register}
+                                name={'description'}
+                                placeholder='Game Description'
+                                error={errors.description}
+                            />
+                            
                             <div className="space-y-2">
                                 <Controller
                                     control={control}
