@@ -155,7 +155,8 @@ export interface AdminAttributes {
   id: number;
   name: string;
   email: string;
-  passowrd_hash: string;
+  token: string;
+  password_hash: string;
   createdAt?: Date;
 }
 
@@ -171,7 +172,8 @@ export class Admin
   public id!: number;
   public name!: string;
   public email!: string;
-  public passowrd_hash!: string;
+  public token!: string;
+  public password_hash!: string;
 
   public readonly createdAt: Date;
 }
@@ -246,7 +248,7 @@ export interface DB {
   Otp: typeof Otp;
   Game: typeof Game;
   Notification: ModelStatic<Model>;
-  Admin: ModelStatic<Model>;
+  Admin: typeof Admin;
 }
 
 export interface UserCreationAttributes

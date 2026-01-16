@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc && node dist/index.js",
-    "build": "tsc",
-    "build:css": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css",
-    "watch:css": "tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && cpx \"views/**/*\" dist/views && node dist/index.js",
+    "move-views": "cpx \"views/**/*\" dist/views",
+    "build": "tsc && cpx \"views/**/*\" dist/views",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"tsc --watch\" \"npm run move-views\" \"nodemon dist/index.js\""
   },
   "keywords": [],
   "author": "",
@@ -20,12 +20,14 @@
     "@aws-sdk/s3-request-presigner": "^3.969.0",
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "cron": "^4.4.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
-    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.2",
     "google-auth-library": "^10.5.0",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
@@ -38,17 +40,18 @@
     "winston": "^3.19.0"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.18",
     "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
     "@types/multer": "^2.0.0",
     "@types/node": "^25.0.3",
     "@types/otp-generator": "^4.0.2",
     "autoprefixer": "^10.4.23",
+    "concurrently": "^9.2.1",
+    "cpx": "^1.5.0",
     "nodemon": "^3.1.11",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }
 }

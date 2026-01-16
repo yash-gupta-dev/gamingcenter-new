@@ -1,3 +1,5 @@
+import path from "path";
+
 export enum USER_AUTH_PROVIDERS {
     EMAIL = "EMAIL",
     GOOGLE = "GOOGLE",
@@ -27,11 +29,11 @@ export enum ROOM_TYPE {
     PRIVATE = "PRIVATE",
 }
 
-type GOOGLE_AUTH_KEYS = 
-    | "client_id" 
-    | "client_secret" 
-    | "endpoint" 
-    | "redirect_uri" 
+type GOOGLE_AUTH_KEYS =
+    | "client_id"
+    | "client_secret"
+    | "endpoint"
+    | "redirect_uri"
     | "scopes";
 
 export const oauth_google: Record<GOOGLE_AUTH_KEYS, string> = {
@@ -41,3 +43,6 @@ export const oauth_google: Record<GOOGLE_AUTH_KEYS, string> = {
     redirect_uri: process.env.GOOGLE_CLIENT_REDIRECT_URI || "",
     scopes: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
 }
+
+export const stylesPath = path.join(__dirname, '..', '..', 'public', 'css', "output.css")
+

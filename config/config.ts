@@ -7,7 +7,7 @@ let baseUrl = processEnv[`BASE_URL`];
 
 export const config = {
     sourcePath: path.join(__dirname, ".."),
-    publicPath: path.join(__dirname, "..", "public"),
+    stylesPath: path.join(__dirname, "..", "public"),
     baseUrl,
     publicUrl: baseUrl + '/public/',
     processEnv,

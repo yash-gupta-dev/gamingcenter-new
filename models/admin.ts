@@ -10,13 +10,16 @@ export default (sequelize: Sequelize): typeof Admin => {
         primaryKey: true
       },
       name: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
+      },
+      token: {
+        type: DataTypes.STRING,
       },
       email: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
       },
-      passowrd_hash: {
-        type: DataTypes.BOOLEAN,
+      password_hash: {
+        type: DataTypes.STRING,
       },
     },
     {

@@ -9,3 +9,8 @@ declare global {
     }
   }
 }
+declare module 'express-serve-static-core' {
+  interface Request {
+    flash(type: string, message?: string | string[]): string[];
+  }
+}
