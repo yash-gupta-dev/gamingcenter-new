@@ -1,5 +1,5 @@
 import { Model, ModelStatic, Optional, Sequelize } from "sequelize";
-import { EVENT_STATUS, PRIORITY, ROOM_TYPE, STATUS, USER_AUTH_PROVIDERS } from '../../constants/constants'
+import { USER_AUTH_PROVIDERS } from '../../constants/constants'
 
 // User
 export interface UserAttributes {
@@ -236,6 +236,25 @@ export class Game
   public readonly updated_at: Date;
 }
 
+// Category
+export interface CategoryAttributes {
+  id: number;
+  title: string;
+}
+
+export interface CategoryCreationAttributes
+  extends Optional<
+    CategoryAttributes,
+    'id'
+  > { }
+
+export class Category
+  extends Model<CategoryAttributes, CategoryCreationAttributes>
+  implements CategoryAttributes {
+  public id!: number;
+  public title!: string;
+}
+
 
 export interface DB {
   sequelize: Sequelize;
@@ -247,12 +266,7 @@ export interface DB {
   ForgetPassword: typeof ForgetPassword;
   Otp: typeof Otp;
   Game: typeof Game;
+  Category: typeof Category;
   Notification: ModelStatic<Model>;
   Admin: typeof Admin;
 }
-
-export interface UserCreationAttributes
-  extends Optional<
-    UserAttributes,
-    'id' | 'is_email_verified'
-  > { }

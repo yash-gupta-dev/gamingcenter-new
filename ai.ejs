@@ -1,0 +1,514 @@
+<% // --- Server-Side Mock Data (In a real app, this comes from your database/controller) --- const users=[ { id: 1,
+    username: "CyberNinja99" , email: "ninja@game.com" , status: "Active" , rank: "Diamond" , lastLogin: "2 mins ago" ,
+    spent: "$450" }, { id: 2, username: "NoobMaster69" , email: "thor@asgard.com" , status: "Banned" , rank: "Bronze" ,
+    lastLogin: "3 days ago" , spent: "$0" }, { id: 3, username: "GlitchQueen" , email: "sombra@hack.net" ,
+    status: "Active" , rank: "Grandmaster" , lastLogin: "Now" , spent: "$1,200" }, { id: 4, username: "PixelPioneer" ,
+    email: "pixel@art.io" , status: "Offline" , rank: "Gold" , lastLogin: "5 hours ago" , spent: "$120" }, { id: 5,
+    username: "RageQuitRex" , email: "rex@dino.com" , status: "Suspended" , rank: "Silver" , lastLogin: "1 day ago" ,
+    spent: "$50" }, ]; const games=[ { id: 101, name: "Neon Warfare" , activePlayers: 12450, servers: 45,
+    status: "Stable" , revenue: "+12%" }, { id: 102, name: "Mystic Realms" , activePlayers: 8900, servers: 30,
+    status: "Warning" , revenue: "-5%" }, { id: 103, name: "Cosmic Racer" , activePlayers: 3200, servers: 12,
+    status: "Stable" , revenue: "+3%" }, { id: 104, name: "Zombie Zest" , activePlayers: 15600, servers: 55,
+    status: "Critical" , revenue: "+22%" }, ]; // --- Helpers --- const getStatusClass=(status)=> {
+    const styles = {
+    Active: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    Online: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    Stable: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    Offline: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+    Banned: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+    Critical: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+    Suspended: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    Warning: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    };
+    return styles[status] || styles.Offline;
+    };
+
+    // Simple Chart Data Calculation
+    const trafficData = [20, 40, 35, 50, 45, 70, 65, 80, 75, 90, 85, 95];
+    const chartPoints = trafficData.map((val, i) => `${(i / (trafficData.length - 1)) * 100},${100 - (val / 100) *
+    100}`).join(" ");
+    const chartFillPoints = `0,100 ${chartPoints} 100,100`;
+    %>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GameCenter Admin</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Lucide Icons -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <style>
+            /* Custom styles for things Tailwind handles via config normally */
+            .animate-in {
+                animation: fadeIn 0.5s ease-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        </style>
+    </head>
+
+    <body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-violet-500/30">
+
+        <div class="flex h-screen overflow-hidden">
+
+            <!-- Sidebar -->
+            <aside id="sidebar"
+                class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out">
+                <div class="flex flex-col h-full p-4">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2 px-4 py-6 mb-4">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                            <i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white tracking-tight">GAME<span
+                                class="text-violet-500">MASTER</span></span>
+                        <!-- Close button for mobile -->
+                        <button onclick="toggleSidebar()" class="md:hidden ml-auto text-slate-400">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <!-- Nav Links -->
+                    <div class="space-y-2 flex-1">
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-2 mt-2">Main
+                            Menu</div>
+
+                        <button onclick="switchTab('dashboard')"
+                            class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 bg-violet-600 text-white shadow-lg shadow-violet-900/20"
+                            data-target="dashboard">
+                            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                            <span class="font-medium">Overview</span>
+                        </button>
+
+                        <button onclick="switchTab('users')"
+                            class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                            data-target="users">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                            <span class="font-medium">Players</span>
+                        </button>
+
+                        <button onclick="switchTab('games')"
+                            class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                            data-target="games">
+                            <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                            <span class="font-medium">Game Library</span>
+                        </button>
+
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-2 mt-8">System
+                        </div>
+                        <button onclick="switchTab('settings')"
+                            class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                            data-target="settings">
+                            <i data-lucide="settings" class="w-5 h-5"></i>
+                            <span class="font-medium">Settings</span>
+                        </button>
+                    </div>
+
+                    <!-- User Profile Footer -->
+                    <div class="mt-auto pt-6 border-t border-slate-800">
+                        <div class="flex items-center space-x-3 px-4 py-2 rounded-xl bg-slate-800/50">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-slate-900 font-bold text-xs">
+                                AD</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-white truncate">AdminUser</p>
+                                <p class="text-xs text-slate-500 truncate">Super Admin</p>
+                            </div>
+                            <i data-lucide="log-out" class="w-4 h-4 text-slate-500 hover:text-white cursor-pointer"></i>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto bg-slate-900 relative">
+
+                <!-- Mobile Header -->
+                <div
+                    class="md:hidden flex items-center justify-between p-4 bg-slate-800 border-b border-slate-700 sticky top-0 z-40">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="gamepad-2" class="w-6 h-6 text-violet-500"></i>
+                        <span class="text-lg font-bold text-white tracking-tight">GAME<span
+                                class="text-violet-500">MASTER</span></span>
+                    </div>
+                    <button onclick="toggleSidebar()" class="p-2 text-slate-400">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Desktop Header -->
+                <header
+                    class="hidden md:flex sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-8 py-4 items-center justify-between">
+                    <h1 id="page-title" class="text-xl font-semibold text-white capitalize">Overview</h1>
+                    <div class="flex items-center space-x-4">
+                        <button
+                            class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg relative transition-colors">
+                            <i data-lucide="bell" class="w-5 h-5"></i>
+                            <span
+                                class="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-slate-900"></span>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="p-4 md:p-8 max-w-7xl mx-auto">
+
+                    <!-- VIEW: DASHBOARD -->
+                    <div id="view-dashboard" class="view-section space-y-6 animate-in">
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Stat Card 1 -->
+                            <div
+                                class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-slate-400 text-sm font-medium mb-1">Total Players</p>
+                                        <h3 class="text-2xl font-bold text-white">2.4M</h3>
+                                    </div>
+                                    <div class="p-3 rounded-lg bg-violet-500/10"><i data-lucide="users"
+                                            class="w-6 h-6 text-violet-400"></i></div>
+                                </div>
+                                <div class="mt-4 flex items-center text-sm"><span
+                                        class="text-emerald-400">+14.2%</span><span class="text-slate-500 ml-2">vs last
+                                        month</span></div>
+                            </div>
+                            <!-- Stat Card 2 -->
+                            <div
+                                class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-slate-400 text-sm font-medium mb-1">Active Sessions</p>
+                                        <h3 class="text-2xl font-bold text-white">145K</h3>
+                                    </div>
+                                    <div class="p-3 rounded-lg bg-emerald-500/10"><i data-lucide="gamepad-2"
+                                            class="w-6 h-6 text-emerald-400"></i></div>
+                                </div>
+                                <div class="mt-4 flex items-center text-sm"><span
+                                        class="text-emerald-400">+5.4%</span><span class="text-slate-500 ml-2">vs last
+                                        month</span></div>
+                            </div>
+                            <!-- Stat Card 3 -->
+                            <div
+                                class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-slate-400 text-sm font-medium mb-1">Revenue</p>
+                                        <h3 class="text-2xl font-bold text-white">$8.2M</h3>
+                                    </div>
+                                    <div class="p-3 rounded-lg bg-amber-500/10"><i data-lucide="activity"
+                                            class="w-6 h-6 text-amber-400"></i></div>
+                                </div>
+                                <div class="mt-4 flex items-center text-sm"><span
+                                        class="text-emerald-400">+8.1%</span><span class="text-slate-500 ml-2">vs last
+                                        month</span></div>
+                            </div>
+                            <!-- Stat Card 4 -->
+                            <div
+                                class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-slate-400 text-sm font-medium mb-1">Server Health</p>
+                                        <h3 class="text-2xl font-bold text-white">98.2%</h3>
+                                    </div>
+                                    <div class="p-3 rounded-lg bg-blue-500/10"><i data-lucide="server"
+                                            class="w-6 h-6 text-blue-400"></i></div>
+                                </div>
+                                <div class="mt-4 flex items-center text-sm"><span
+                                        class="text-rose-400">-0.4%</span><span class="text-slate-500 ml-2">vs last
+                                        month</span></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Chart Section -->
+                            <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="text-lg font-semibold text-white">Player Traffic (Real-time)</h3>
+                                    <select
+                                        class="bg-slate-700 border-none text-slate-300 text-sm rounded-lg p-2 focus:ring-2 focus:ring-violet-500 outline-none">
+                                        <option>Last 24 Hours</option>
+                                        <option>Last 7 Days</option>
+                                    </select>
+                                </div>
+                                <!-- SVG Chart -->
+                                <div class="h-32 w-full overflow-hidden relative">
+                                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
+                                        <defs>
+                                            <linearGradient id="grad-violet" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" style="stop-color: #8b5cf6; stop-opacity: 0.4" />
+                                                <stop offset="100%" style="stop-color: #8b5cf6; stop-opacity: 0" />
+                                            </linearGradient>
+                                        </defs>
+                                        <polygon points="<%= chartFillPoints %>" fill="url(#grad-violet)" />
+                                        <polyline points="<%= chartPoints %>" fill="none" stroke="#8b5cf6"
+                                            stroke-width="2" vector-effect="non-scaling-stroke" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Live Alerts -->
+                            <div class="bg-slate-800 rounded-xl border border-slate-700 p-6">
+                                <h3 class="text-lg font-semibold text-white mb-4">Live System Alerts</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                                        <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-500 shrink-0"></i>
+                                        <div>
+                                            <p class="text-sm text-slate-200">Server US-East-4 high latency</p>
+                                            <p class="text-xs text-slate-500 mt-1">2m ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                                        <i data-lucide="shield-alert" class="w-5 h-5 text-amber-500 shrink-0"></i>
+                                        <div>
+                                            <p class="text-sm text-slate-200">Suspicious login spike detected</p>
+                                            <p class="text-xs text-slate-500 mt-1">15m ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i>
+                                        <div>
+                                            <p class="text-sm text-slate-200">Patch v4.2.0 deployed successfully</p>
+                                            <p class="text-xs text-slate-500 mt-1">1h ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: USERS -->
+                    <div id="view-users" class="view-section hidden space-y-6 animate-in">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                            <h2 class="text-2xl font-bold text-white">Player Management</h2>
+                            <div class="relative w-full sm:w-64">
+                                <i data-lucide="search"
+                                    class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                                <input type="text" id="user-search" onkeyup="filterUsers()"
+                                    placeholder="Search players..."
+                                    class="w-full bg-slate-800 border-slate-700 text-slate-200 pl-10 pr-4 py-2 rounded-lg focus:ring-2 focus:ring-violet-500 focus:outline-none placeholder-slate-500">
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm text-slate-400">
+                                    <thead
+                                        class="bg-slate-750 border-b border-slate-700 text-slate-200 uppercase tracking-wider text-xs">
+                                        <tr>
+                                            <th class="px-6 py-4 font-semibold">User</th>
+                                            <th class="px-6 py-4 font-semibold">Rank</th>
+                                            <th class="px-6 py-4 font-semibold">Status</th>
+                                            <th class="px-6 py-4 font-semibold">Last Active</th>
+                                            <th class="px-6 py-4 font-semibold">Spent</th>
+                                            <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-700" id="users-table-body">
+                                        <% users.forEach(function(user) { %>
+                                            <tr class="hover:bg-slate-700/30 transition-colors user-row">
+                                                <td class="px-6 py-4">
+                                                    <div class="flex items-center space-x-3">
+                                                        <div
+                                                            class="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white font-bold text-xs">
+                                                            <%= user.username.substring(0,2).toUpperCase() %>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-white font-medium username">
+                                                                <%= user.username %>
+                                                            </p>
+                                                            <p class="text-xs text-slate-500 email">
+                                                                <%= user.email %>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <div class="flex items-center"><i data-lucide="trophy"
+                                                            class="w-4 h-4 mr-2 text-amber-400"></i>
+                                                        <%= user.rank %>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <span
+                                                        class="px-2.5 py-0.5 rounded-full text-xs font-medium border <%= getStatusClass(user.status) %>">
+                                                        <%= user.status %>
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <%= user.lastLogin %>
+                                                </td>
+                                                <td class="px-6 py-4 text-emerald-400 font-mono">
+                                                    <%= user.spent %>
+                                                </td>
+                                                <td class="px-6 py-4 text-right">
+                                                    <button onclick="alert('Action triggered for <%= user.username %>')"
+                                                        class="text-xs px-3 py-1.5 rounded-md font-medium bg-slate-700 hover:bg-slate-600 text-white transition-colors">Manage</button>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: GAMES -->
+                    <div id="view-games" class="view-section hidden space-y-6 animate-in">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold text-white">Game Library</h2>
+                            <button
+                                class="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
+                                <i data-lucide="gamepad-2" class="w-4 h-4 mr-2"></i> Add New
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <% games.forEach(function(game) { %>
+                                <div
+                                    class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden group hover:border-violet-500/50 transition-all duration-300">
+                                    <div class="h-32 bg-slate-700 relative overflow-hidden">
+                                        <div
+                                            class="absolute inset-0 opacity-20 bg-gradient-to-tr from-violet-600 to-slate-900">
+                                        </div>
+                                        <div class="absolute bottom-4 left-4">
+                                            <h3
+                                                class="text-xl font-bold text-white group-hover:text-violet-400 transition-colors">
+                                                <%= game.name %>
+                                            </h3>
+                                        </div>
+                                        <div class="absolute top-4 right-4">
+                                            <span
+                                                class="px-2.5 py-0.5 rounded-full text-xs font-medium border <%= getStatusClass(game.status) %>">
+                                                <%= game.status %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-6 space-y-4">
+                                        <div class="flex justify-between text-sm"><span
+                                                class="text-slate-400">Players</span><span
+                                                class="text-white font-mono font-bold">
+                                                <%= game.activePlayers.toLocaleString() %>
+                                            </span></div>
+                                        <div class="flex justify-between text-sm"><span
+                                                class="text-slate-400">Servers</span><span class="text-white font-mono">
+                                                <%= game.servers %>
+                                            </span></div>
+                                        <div class="flex justify-between text-sm"><span
+                                                class="text-slate-400">Revenue</span><span
+                                                class="<%= game.revenue.startsWith('+') ? 'text-emerald-400' : 'text-rose-400' %>">
+                                                <%= game.revenue %>
+                                            </span></div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+                    </div>
+
+                    <!-- VIEW: SETTINGS (Placeholder) -->
+                    <div id="view-settings"
+                        class="view-section hidden flex flex-col items-center justify-center h-96 text-slate-500">
+                        <i data-lucide="settings" class="w-12 h-12 mb-4 animate-spin-slow"></i>
+                        <p>Settings module under development.</p>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- Mobile Overlay -->
+            <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden">
+            </div>
+        </div>
+
+        <script>
+            // Initialize Icons
+            lucide.createIcons();
+
+            // Navigation Logic
+            function switchTab(tabId) {
+                // Hide all views
+                document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+                // Show target view
+                document.getElementById('view-' + tabId).classList.remove('hidden');
+
+                // Update Sidebar Active State
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    el.classList.remove('bg-violet-600', 'text-white', 'shadow-lg', 'shadow-violet-900/20');
+                    el.classList.add('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
+                });
+
+                // Highlight active button
+                const activeBtn = document.querySelector(`.nav-item[data-target="${tabId}"]`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
+                    activeBtn.classList.add('bg-violet-600', 'text-white', 'shadow-lg', 'shadow-violet-900/20');
+                }
+
+                // Update Title
+                const titles = { dashboard: 'Overview', users: 'Player Management', games: 'Game Library', settings: 'Settings' };
+                document.getElementById('page-title').innerText = titles[tabId];
+
+                // Close sidebar on mobile if open
+                const sidebar = document.getElementById('sidebar');
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    toggleSidebar();
+                }
+            }
+
+            // Sidebar Toggle for Mobile
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('mobile-overlay');
+
+                if (sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.add('hidden');
+                }
+            }
+
+            // Simple Client-Side Search for Users
+            function filterUsers() {
+                const input = document.getElementById('user-search');
+                const filter = input.value.toLowerCase();
+                const rows = document.querySelectorAll('.user-row');
+
+                rows.forEach(row => {
+                    const username = row.querySelector('.username').innerText.toLowerCase();
+                    const email = row.querySelector('.email').innerText.toLowerCase();
+                    if (username.includes(filter) || email.includes(filter)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            }
+        </script>
+    </body>
+
+    </html>

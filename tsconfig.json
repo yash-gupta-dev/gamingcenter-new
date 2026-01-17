@@ -5,9 +5,20 @@
     "target": "ES2020",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
-  "lib": ["es2015"],
+  "lib": [
+    "es2015"
+  ],
   // "include": ["index.ts", "utils", "types", "services", "routes", "models"]
-  "include": ["**/*.ts", "types/**/*.d.ts"]
+  "include": [
+    "**/*.ts",
+    "types/**/*.d.ts"
+  ]
 }

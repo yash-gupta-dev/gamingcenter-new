@@ -36,9 +36,9 @@ export const generateRefreshToken = () => {
     return crypto.randomBytes(64).toString("hex");
 }
 
-export const decodeToken = (refreshToken: string) => {
+export const decodeToken = (token: string) => {
     const decoded = jwt.verify(
-        refreshToken,
+        token,
         process.env.JWT_SECRET!
     );
     return decoded;

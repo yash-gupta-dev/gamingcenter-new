@@ -9,7 +9,7 @@ interface AccessTokenPayload extends JwtPayload {
     userId: number;
 }
 
-export const verifyAccessToken = (
+export const verifyUser = (
     req: Request,
     _: Response,
     next: NextFunction
@@ -23,10 +23,7 @@ export const verifyAccessToken = (
     const token = authHeader.split(" ")[1];
 
     try {
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET!
-        ) as AccessTokenPayload;
+        const decoded = decodeToken(token) as AccessTokenPayload;
 
         req.user = {
             id: decoded.userId,

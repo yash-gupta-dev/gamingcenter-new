@@ -5,10 +5,3 @@ export const renderEjsFile = (req: Request, res: Response, path: string, data: R
     const url = req.protocol + "://" + req.headers.host + "/css/output.css";
     return res.render(path, { ...data, css: url });
 }
-
-export const throwEjsError = (req: Request, res: Response, error: string) => {
-    req.flash('formValue', req.body);
-    req.flash('error', error);
-    req.flash('success')
-    return res.redirect(req.header('Referer'))
-}

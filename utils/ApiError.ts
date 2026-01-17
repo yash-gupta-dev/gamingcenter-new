@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 
 export const asyncHandler =
   (fn: Function) =>
-  (req: Request, res: Response, next: NextFunction) =>
-    Promise.resolve(fn(req, res, next)).catch(next);
-  
+    (req: Request, res: Response, next: NextFunction) =>
+      Promise.resolve(fn(req, res, next)).catch(next);
+
 export class AppError extends Error {
   public readonly statusCode: number;
   public readonly isOperational: boolean;
@@ -34,4 +34,11 @@ export class NotFoundError extends AppError {
   constructor(message = "Resource not found") {
     super(message, 404);
   }
+}
+
+export const throwEjsError = (req: Request, res: Response, error: string) => {
+  req.flash('formValue', req.body);
+  req.flash('error', error);
+  req.flash('success')
+  return res.redirect(req.header('Referer'))
 }

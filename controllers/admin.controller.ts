@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import Joi from "joi";
 import { db } from "../models";
-import { NotFoundError, UnauthorizedError } from "../utils/ApiError";
 import bcrypt from 'bcrypt'
 import { generateAccessToken } from "../utils/token";
 import { getcookie } from "../utils/cookie.utils";
-import { renderEjsFile, throwEjsError } from "../utils/common.utils";
+import { renderEjsFile } from "../utils/common.utils";
+import { throwEjsError } from "../utils/ApiError";
 
 // LOGIN
 const showLogin = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,7 +60,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 // DASHBOARD
 const showDashboard = async (req: Request, res: Response, next: NextFunction) => {
     const users = await db.User.count()
-    const games = await db.Game.count()    
+    const games = await db.Game.count()
 
     return res.render("admin/dashboard.ejs", ({
         users,
