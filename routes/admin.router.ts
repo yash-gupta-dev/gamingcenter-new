@@ -8,6 +8,7 @@ const adminRouter = express.Router();
 adminRouter.get("/login", asyncHandler(adminController.showLogin));
 adminRouter.post("/login", asyncHandler(adminController.login));
 adminRouter.get("/dashboard", verifyAdmin ,asyncHandler(adminController.showDashboard));
+adminRouter.get("/categories", verifyAdmin ,asyncHandler(adminController.showCategories));
 
 export {
     adminRouter

@@ -68,8 +68,16 @@ const showDashboard = async (req: Request, res: Response, next: NextFunction) =>
     }))
 };
 
+// CATEGORIES
+const showCategories = async (req: Request, res: Response, next: NextFunction) => {
+    return res.render("admin/categories.ejs", ({
+
+    }))
+};
+
 export default {
     showLogin,
     login,
-    showDashboard
+    showDashboard,
+    showCategories
 }
