@@ -8,5 +8,6 @@
     "outDir": "dist"
   },
   "lib": ["es2015"],
-  "include": ["types", "index.ts", "utils", "types", "services", "routes", "models"]
+  // "include": ["index.ts", "utils", "types", "services", "routes", "models"]
+  "include": ["**/*.ts", "types/**/*.d.ts"]
 }

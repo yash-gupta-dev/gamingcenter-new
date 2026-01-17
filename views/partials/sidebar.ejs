@@ -1,0 +1,163 @@
+<div  class=" sidebar-container">
+    <div id="sidebar" class="sidemenu-container navbar-collapse collapse fixed-menu">
+        <div id="remove-scroll" class="left-sidemenu">
+            <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false"
+                data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                <li class="nav-item <%= (active === 14)? "active" : "" %>">
+                    <a href="/admin/Dashboard/" class="nav-link  nav-toggle">
+                        <i data-feather="airplay"></i>
+                        <span  class="title "><%= __('Dashboard') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item <%= (active === 15 || active === 18)? "active" : "" %>" > 
+                    <a href="/admin/get-all-appointments" class="nav-link  nav-toggle">
+                        <i class="fa fa-file-text"></i>
+                        <span  class="title"><%= __('Consultations') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item <%= (active === 12 || active === 13 || active === 17)? "active" : "" %> "> 
+                    <a id="doctor" href="#" class="nav-link nav-toggle"> <i class="fa fa-id-card-o"></i>
+                        <span class="title"><%= __('Doctors') %> </span> <span class="arrow"></span>
+                        <span class="count label label-rouded label-menu deepPink-bgcolor"></span>
+                    </a>
+                    <ul class="sub-menu ">
+                        <li class="nav-item <%= (active === 13)? "active" : "" %>">
+                            <a href="/admin/all-doctors" class="nav-link "> <span class="title">
+                                <%= __('All Doctor') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 12)? "active" : "" %> ">
+                             <a href="/admin/onboarding-doctors" class="nav-link ">
+                                <div style="width: 120px;">
+                                    <span class="title">
+                                        <%= __('Onboarding Doctors')  %></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 17)? "active" : "" %> ">
+                            <a href="/admin/get-contract" class="nav-link ">
+                               <div style="width: 120px;">
+                                   <span class="title">
+                                       <%= __('Contract')  %></span>
+                               </div>
+                           </a>
+                       </li>
+                    </ul>
+                </li>
+                <li class="nav-item <%= (active === 11 || active === 16)? "active" : "" %> ">
+                    <a id="patient" href="#" class="nav-link nav-toggle"> <i data-feather="smile"></i>
+                        <span class="title"><%= __('Patients') %>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp</span> <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  <%= (active === 11)? "active" : "" %>">
+                            <a  href="/admin/all-patients" class="nav-link "> <span class="title">
+                                <%= __('All Patients') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item  <%= (active === 16)? "active" : "" %>">
+                            <a  href="/admin/get-all-child" class="nav-link "> <span class="title">
+                                <%= __('Child profiles') %></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <%= (active === 6 || active === 7 || active === 8 || active === 9 || active === 10 || active === 19)? "active" : "" %>">
+                    <a href="#" class="nav-link nav-toggle"> <i data-feather="dollar-sign"></i>
+                        <span class="title"><%= __('Payments') %></span> <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  <%= (active === 10)? "active" : "" %>">
+                            <a href="/admin/payment-dashboard" class="nav-link "> <span class="title"><%= __('Dashboard') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 9)? "active" : "" %>">
+                            <a href="/admin/my-wallet" class="nav-link"> <span class="title"><%= __('My Wallet') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 8)? "active" : "" %>">
+                            <a href="/admin/get-doctor-wallet" class="nav-link "> <span class="title">
+                                <%= __('Doctor Wallet') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 7)? "active" : "" %>">
+                            <a href="/admin/get-settlement-request" class="nav-link "> <span class="title">
+                                <%= __('Settlement Request') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 6)? "active" : "" %>">
+                            <a href="/admin/patient-transaction" class="nav-link "> <span class="title">
+                                <%= __('Patient Transaction') %></span>
+                            </a>
+                        </li>
+                        <li class="nav-item <%= (active === 19)? "active" : "" %>">
+                            <a href="/admin/transaction-charges" class="nav-link "> <span class="title">
+                                <%= __('Transaction charges') %></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item <%= (active === 5)? "active" : "" %>">
+                    <a href="/admin/specility/" class="nav-link  nav-toggle">
+                        <i data-feather="layers"></i>
+                        <span  class="title "><%= __('speciality') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item  <%= (active === 4)? "active" : "" %>">
+                    <a href="/admin/banner/" class="nav-link  nav-toggle">
+                        <i data-feather="grid"></i>
+                        <span  class="title "><%= __('Banners') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item <%= (active === 3)? "active" : "" %>">
+                    <a href="/admin/showabout" class="nav-link  nav-toggle">
+                        <i class="fa fa-check-square"></i>
+                        <span  class="title "><%= __('About') %> </span>
+                        <span class="selected"></span>  
+                    </a>
+                </li>
+                <li class="nav-item <%= (active === 2)? "active" : "" %>">
+                    <a href="/admin/term" class="nav-link  nav-toggle">
+                        <i class="fa fa-file-text"></i>
+                        <span  class="title "><%= __('Term & Condition') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <% if (!profile.is_subadmin) { %>
+                <li class="nav-item <%= (active === 1)? "active" : "" %>" > 
+                    <a href="/admin/sub-admin" class="nav-link  nav-toggle">
+                        <i class="fa fa-file-text"></i>
+                        <span  class="title"><%= __('Sub Admin') %> </span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+    .sidemenu .active {
+      background-color: #d61010; /* Apply your desired active style */
+      /* Add any other styles for the active menu item */
+    }
+</style>
+<script src="../../../public/assets/bundles/jquery/jquery.min.js"></script>
+<script>
+    (function() {
+      'use strict';
+        var settings = {
+            "url": "https://backend.docnet.tn/admin/dashboard/sidemenu",
+            "method": "GET",
+            "timeout": 0,
+        };
+                
+        $.ajax(settings).done(function (response) {
+            $(".count").html(response.onboardingDoctors? response.onboardingDoctors: "0")
+        })
+    
+    })();
+  </script> 

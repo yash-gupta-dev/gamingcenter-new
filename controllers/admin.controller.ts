@@ -3,13 +3,13 @@ import Joi from "joi";
 import { db } from "../models";
 import { NotFoundError, UnauthorizedError } from "../utils/ApiError";
 import bcrypt from 'bcrypt'
-import { generateAuthTokens } from "../utils/token";
+import { generateAccessToken } from "../utils/token";
 import { getcookie } from "../utils/cookie.utils";
-import { renderEjsFile } from "../utils/common.utils";
+import { renderEjsFile, throwEjsError } from "../utils/common.utils";
 
 // LOGIN
 const showLogin = async (req: Request, res: Response, next: NextFunction) => {
-    let token = getcookie(req);    
+    let token = getcookie(req);
     if (!token) {
         const error = req.flash('error')
         const message = req.flash('success')
@@ -21,7 +21,7 @@ const showLogin = async (req: Request, res: Response, next: NextFunction) => {
             const error = req.flash('error')
             const message = req.flash('success')
             const formValue = req.flash('formValue')[0];
-            return renderEjsFile(req, res, 'admin/auth/login.ejs', { message, error, formValue });
+            return renderEjsFile(req, res, 'admin/login.ejs', { message, error, formValue });
         }
         res.redirect("/admin/dashboard")
     }
@@ -32,7 +32,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     const schema = Joi.object({
         email: Joi.string().email().required(),
-        password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required()
+        password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'), 'Password must be at least 8 characters long').required()
     })
 
     await schema.validateAsync(req.body);
@@ -43,21 +43,25 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         }
     });
 
-    if (!admin) return next(new NotFoundError("Admin Not Found"));
+    if (!admin) return throwEjsError(req, res, "Admin Not Found");
 
 
     const isMatch = await bcrypt.compare(password, admin.password_hash);
-    if (!isMatch) return next(new UnauthorizedError("Invalid Credentials"));;
+    if (!isMatch) return throwEjsError(req, res, "Invalid Credentials");
+    const token = generateAccessToken(admin.id, "365d");
 
-    const { accessToken, refreshToken } = await generateAuthTokens(admin.id);
+    admin.token = token;
+    await admin.save()
+    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 365 })
 
-    return res.status(200).json({
-        id: admin.id,
-        email: email,
-        name: admin.name,
-        accessToken,
-        refreshToken
-    });
+    res.redirect('/admin/dashboard')
+};
+
+// DASHBOARD
+const showDashboard = async (req: Request, res: Response, next: NextFunction) => {
+    return res.render("admin/dashboard.ejs", ({
+
+    }))
 };
 
 export default {

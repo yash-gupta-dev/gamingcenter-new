@@ -3,7 +3,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { db } from '../models';
 
-export const generateAccessToken = (userId: number) => {
+export const generateAccessToken = (userId: number, expiry?: string) => {
     const accessToken = jwt.sign(
         { userId },
         process.env.JWT_SECRET!,
