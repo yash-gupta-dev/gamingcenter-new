@@ -1,13 +1,13 @@
-import jwt from 'jsonwebtoken'
+import jwt, { SignOptions } from 'jsonwebtoken'
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { db } from '../models';
 
-export const generateAccessToken = (userId: number, expiry?: string) => {
+export const generateAccessToken = (userId: number, expiry?: SignOptions["expiresIn"]) => {
     const accessToken = jwt.sign(
         { userId },
         process.env.JWT_SECRET!,
-        { expiresIn: "15m" }
+        { expiresIn: expiry || "15m" }
     );
 
     return accessToken
@@ -39,7 +39,7 @@ export const generateRefreshToken = () => {
 export const decodeToken = (refreshToken: string) => {
     const decoded = jwt.verify(
         refreshToken,
-        process.env.JWT_REFRESH_SECRET!
+        process.env.JWT_SECRET!
     );
     return decoded;
 }

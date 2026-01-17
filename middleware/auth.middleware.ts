@@ -44,8 +44,6 @@ export const verifyAdmin = async (
     next: NextFunction
 ) => {
     const token = getcookie(req)
-    console.log('Token', token);
-    
     if (token) {
         const decodedToken = decodeToken(token)
         if (decodedToken) {

@@ -1,0 +1,66 @@
+<script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Navigation Logic
+    function switchTab(tabId) {
+        // Hide all views
+        document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+        // Show target view
+        document.getElementById('view-' + tabId).classList.remove('hidden');
+        
+        // Update Sidebar Active State
+        document.querySelectorAll('.nav-item').forEach(el => {
+            el.classList.remove('bg-violet-600', 'text-white', 'shadow-lg', 'shadow-violet-900/20');
+            el.classList.add('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
+        });
+        
+        // Highlight active button
+        const activeBtn = document.querySelector(`.nav-item[data-target="${tabId}"]`);
+        if(activeBtn) {
+            activeBtn.classList.remove('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
+            activeBtn.classList.add('bg-violet-600', 'text-white', 'shadow-lg', 'shadow-violet-900/20');
+        }
+
+        // Update Title
+        const titles = { dashboard: 'Overview', users: 'Player Management', games: 'Game Library', settings: 'Settings' };
+        document.getElementById('page-title').innerText = titles[tabId];
+
+        // Close sidebar on mobile if open
+        const sidebar = document.getElementById('sidebar');
+        if (!sidebar.classList.contains('-translate-x-full')) {
+            toggleSidebar();
+        }
+    }
+
+    // Sidebar Toggle for Mobile
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobile-overlay');
+        
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+
+    // Simple Client-Side Search for Users
+    function filterUsers() {
+        const input = document.getElementById('user-search');
+        const filter = input.value.toLowerCase();
+        const rows = document.querySelectorAll('.user-row');
+
+        rows.forEach(row => {
+            const username = row.querySelector('.username').innerText.toLowerCase();
+            const email = row.querySelector('.email').innerText.toLowerCase();
+            if (username.includes(filter) || email.includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>

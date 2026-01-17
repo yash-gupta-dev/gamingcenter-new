@@ -51,20 +51,25 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const token = generateAccessToken(admin.id, "365d");
 
     admin.token = token;
-    await admin.save()
-    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 * 365 })
+    await admin.save();
+    res.cookie('dd-token', token, { maxAge: 1000 * 60 * 60 * 24 * 365 })
 
     res.redirect('/admin/dashboard')
 };
 
 // DASHBOARD
 const showDashboard = async (req: Request, res: Response, next: NextFunction) => {
-    return res.render("admin/dashboard.ejs", ({
+    const users = await db.User.count()
+    const games = await db.Game.count()    
 
+    return res.render("admin/dashboard.ejs", ({
+        users,
+        games
     }))
 };
 
 export default {
     showLogin,
-    login
+    login,
+    showDashboard
 }

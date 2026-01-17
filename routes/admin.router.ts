@@ -7,7 +7,7 @@ const adminRouter = express.Router();
 
 adminRouter.get("/login", asyncHandler(adminController.showLogin));
 adminRouter.post("/login", asyncHandler(adminController.login));
-adminRouter.get("/dashboard", verifyAdmin ,asyncHandler(adminController.login));
+adminRouter.get("/dashboard", verifyAdmin ,asyncHandler(adminController.showDashboard));
 
 export {
     adminRouter

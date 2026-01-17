@@ -1,14 +1,141 @@
-<%- include('../partials/head.ejs') -%>
-	<body
-		class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-white white-sidebar-color logo-indigo">
-		<div class="page-wrapper">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-violet-500/30">
+  <div class="flex h-screen overflow-hidden">
+    <%- include('../partials/sidebar.ejs') -%>
+      <main class="flex-1 overflow-y-auto bg-slate-900 relative">
 
-				<div class="page-container">
-					<!-- start sidebar menu -->
-					<%- include('../partials/sidebar.ejs') -%>
-						<!-- end sidebar menu -->
-						<!-- start page content -->
+        <%- include('../partials/header.ejs') -%>
 
-					</div>
-				</div>
-			</body>
+          <div class="p-4 md:p-8 max-w-7xl mx-auto">
+
+            <!-- VIEW: DASHBOARD -->
+            <div id="view-dashboard" class="view-section space-y-6 animate-in">
+              <!-- Stats Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Stat Card 1 -->
+                <div
+                  class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <p class="text-slate-400 text-sm font-medium mb-1">Total Players</p>
+                      <h3 class="text-2xl font-bold text-white">
+                        <%= users %>
+                      </h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-violet-500/10"><i data-lucide="users"
+                        class="w-6 h-6 text-violet-400"></i>
+                    </div>
+                  </div>
+                  <div class="mt-4 flex items-center text-sm"><span class="text-emerald-400">+14.2%</span><span
+                      class="text-slate-500 ml-2">vs last
+                      month</span>
+                  </div>
+                </div>
+                <!-- Stat Card 2 -->
+                <div
+                  class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <p class="text-slate-400 text-sm font-medium mb-1">Active Sessions</p>
+                      <h3 class="text-2xl font-bold text-white">145K</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-emerald-500/10"><i data-lucide="gamepad-2"
+                        class="w-6 h-6 text-emerald-400"></i></div>
+                  </div>
+                  <div class="mt-4 flex items-center text-sm"><span class="text-emerald-400">+5.4%</span><span
+                      class="text-slate-500 ml-2">vs last
+                      month</span></div>
+                </div>
+                <!-- Stat Card 3 -->
+                <div
+                  class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <p class="text-slate-400 text-sm font-medium mb-1">Revenue</p>
+                      <h3 class="text-2xl font-bold text-white">$8.2M</h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-amber-500/10"><i data-lucide="activity"
+                        class="w-6 h-6 text-amber-400"></i>
+                    </div>
+                  </div>
+                  <div class="mt-4 flex items-center text-sm"><span class="text-emerald-400">+8.1%</span><span
+                      class="text-slate-500 ml-2">vs last
+                      month</span></div>
+                </div>
+                <!-- Stat Card 4 -->
+                <div
+                  class="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-violet-500 transition-colors duration-300">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <p class="text-slate-400 text-sm font-medium mb-1">Total games</p>
+                      <h3 class="text-2xl font-bold text-white"><%= games %></h3>
+                    </div>
+                    <div class="p-3 rounded-lg bg-blue-500/10"><i data-lucide="server"
+                        class="w-6 h-6 text-blue-400"></i>
+                    </div>
+                  </div>
+                  <div class="mt-4 flex items-center text-sm"><span class="text-rose-400">-0.4%</span><span
+                      class="text-slate-500 ml-2">vs last
+                      month</span></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart Section -->
+                <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 p-6">
+                  <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-white">Player Traffic (Real-time)</h3>
+                    <select
+                      class="bg-slate-700 border-none text-slate-300 text-sm rounded-lg p-2 focus:ring-2 focus:ring-violet-500 outline-none">
+                      <option>Last 24 Hours</option>
+                      <option>Last 7 Days</option>
+                    </select>
+                  </div>
+                  <!-- SVG Chart -->
+                  <div class="h-32 w-full overflow-hidden relative">
+                    <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
+                      <defs>
+                        <linearGradient id="grad-violet" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" style="stop-color: #8b5cf6; stop-opacity: 0.4" />
+                          <stop offset="100%" style="stop-color: #8b5cf6; stop-opacity: 0" />
+                        </linearGradient>
+                      </defs>
+                      <polygon points="100" fill="url(#grad-violet)" />
+                      <polyline points="10" fill="none" stroke="#8b5cf6" stroke-width="2"
+                        vector-effect="non-scaling-stroke" />
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Live Alerts -->
+                <div class="bg-slate-800 rounded-xl border border-slate-700 p-6">
+                  <h3 class="text-lg font-semibold text-white mb-4">Live System Alerts</h3>
+                  <div class="space-y-4">
+                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                      <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-500 shrink-0"></i>
+                      <div>
+                        <p class="text-sm text-slate-200">Server US-East-4 high latency</p>
+                        <p class="text-xs text-slate-500 mt-1">2m ago</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                      <i data-lucide="shield-alert" class="w-5 h-5 text-amber-500 shrink-0"></i>
+                      <div>
+                        <p class="text-sm text-slate-200">Suspicious login spike detected</p>
+                        <p class="text-xs text-slate-500 mt-1">15m ago</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/50">
+                      <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500 shrink-0"></i>
+                      <div>
+                        <p class="text-sm text-slate-200">Patch v4.2.0 deployed successfully</p>
+                        <p class="text-xs text-slate-500 mt-1">1h ago</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </main>
+  </div>
+</body>

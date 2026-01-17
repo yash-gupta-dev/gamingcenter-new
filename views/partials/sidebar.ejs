@@ -1,163 +1,69 @@
-<div  class=" sidebar-container">
-    <div id="sidebar" class="sidemenu-container navbar-collapse collapse fixed-menu">
-        <div id="remove-scroll" class="left-sidemenu">
-            <ul class="sidemenu  page-header-fixed slimscroll-style" data-keep-expanded="false"
-                data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
-                <li class="nav-item <%= (active === 14)? "active" : "" %>">
-                    <a href="/admin/Dashboard/" class="nav-link  nav-toggle">
-                        <i data-feather="airplay"></i>
-                        <span  class="title "><%= __('Dashboard') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li class="nav-item <%= (active === 15 || active === 18)? "active" : "" %>" > 
-                    <a href="/admin/get-all-appointments" class="nav-link  nav-toggle">
-                        <i class="fa fa-file-text"></i>
-                        <span  class="title"><%= __('Consultations') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li class="nav-item <%= (active === 12 || active === 13 || active === 17)? "active" : "" %> "> 
-                    <a id="doctor" href="#" class="nav-link nav-toggle"> <i class="fa fa-id-card-o"></i>
-                        <span class="title"><%= __('Doctors') %> </span> <span class="arrow"></span>
-                        <span class="count label label-rouded label-menu deepPink-bgcolor"></span>
-                    </a>
-                    <ul class="sub-menu ">
-                        <li class="nav-item <%= (active === 13)? "active" : "" %>">
-                            <a href="/admin/all-doctors" class="nav-link "> <span class="title">
-                                <%= __('All Doctor') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 12)? "active" : "" %> ">
-                             <a href="/admin/onboarding-doctors" class="nav-link ">
-                                <div style="width: 120px;">
-                                    <span class="title">
-                                        <%= __('Onboarding Doctors')  %></span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 17)? "active" : "" %> ">
-                            <a href="/admin/get-contract" class="nav-link ">
-                               <div style="width: 120px;">
-                                   <span class="title">
-                                       <%= __('Contract')  %></span>
-                               </div>
-                           </a>
-                       </li>
-                    </ul>
-                </li>
-                <li class="nav-item <%= (active === 11 || active === 16)? "active" : "" %> ">
-                    <a id="patient" href="#" class="nav-link nav-toggle"> <i data-feather="smile"></i>
-                        <span class="title"><%= __('Patients') %>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp</span> <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item  <%= (active === 11)? "active" : "" %>">
-                            <a  href="/admin/all-patients" class="nav-link "> <span class="title">
-                                <%= __('All Patients') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item  <%= (active === 16)? "active" : "" %>">
-                            <a  href="/admin/get-all-child" class="nav-link "> <span class="title">
-                                <%= __('Child profiles') %></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <%= (active === 6 || active === 7 || active === 8 || active === 9 || active === 10 || active === 19)? "active" : "" %>">
-                    <a href="#" class="nav-link nav-toggle"> <i data-feather="dollar-sign"></i>
-                        <span class="title"><%= __('Payments') %></span> <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="nav-item  <%= (active === 10)? "active" : "" %>">
-                            <a href="/admin/payment-dashboard" class="nav-link "> <span class="title"><%= __('Dashboard') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 9)? "active" : "" %>">
-                            <a href="/admin/my-wallet" class="nav-link"> <span class="title"><%= __('My Wallet') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 8)? "active" : "" %>">
-                            <a href="/admin/get-doctor-wallet" class="nav-link "> <span class="title">
-                                <%= __('Doctor Wallet') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 7)? "active" : "" %>">
-                            <a href="/admin/get-settlement-request" class="nav-link "> <span class="title">
-                                <%= __('Settlement Request') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 6)? "active" : "" %>">
-                            <a href="/admin/patient-transaction" class="nav-link "> <span class="title">
-                                <%= __('Patient Transaction') %></span>
-                            </a>
-                        </li>
-                        <li class="nav-item <%= (active === 19)? "active" : "" %>">
-                            <a href="/admin/transaction-charges" class="nav-link "> <span class="title">
-                                <%= __('Transaction charges') %></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item <%= (active === 5)? "active" : "" %>">
-                    <a href="/admin/specility/" class="nav-link  nav-toggle">
-                        <i data-feather="layers"></i>
-                        <span  class="title "><%= __('speciality') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li class="nav-item  <%= (active === 4)? "active" : "" %>">
-                    <a href="/admin/banner/" class="nav-link  nav-toggle">
-                        <i data-feather="grid"></i>
-                        <span  class="title "><%= __('Banners') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <li class="nav-item <%= (active === 3)? "active" : "" %>">
-                    <a href="/admin/showabout" class="nav-link  nav-toggle">
-                        <i class="fa fa-check-square"></i>
-                        <span  class="title "><%= __('About') %> </span>
-                        <span class="selected"></span>  
-                    </a>
-                </li>
-                <li class="nav-item <%= (active === 2)? "active" : "" %>">
-                    <a href="/admin/term" class="nav-link  nav-toggle">
-                        <i class="fa fa-file-text"></i>
-                        <span  class="title "><%= __('Term & Condition') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <% if (!profile.is_subadmin) { %>
-                <li class="nav-item <%= (active === 1)? "active" : "" %>" > 
-                    <a href="/admin/sub-admin" class="nav-link  nav-toggle">
-                        <i class="fa fa-file-text"></i>
-                        <span  class="title"><%= __('Sub Admin') %> </span>
-                        <span class="selected"></span>
-                    </a>
-                </li>
-                <% } %>
-            </ul>
+<%- include('./head.ejs') -%>
+
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out">
+        <div class="flex flex-col h-full p-4">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2 px-4 py-6 mb-4">
+                <div
+                    class="w-8 h-8 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                    <i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-white tracking-tight">GAME<span
+                        class="text-violet-500">CENTER</span></span>
+                <!-- Close button for mobile -->
+                <button onclick="toggleSidebar()" class="md:hidden ml-auto text-slate-400">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Nav Links -->
+            <div class="space-y-2 flex-1">
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-2 mt-2">Main Menu
+                </div>
+
+                <button onclick="switchTab('dashboard')"
+                    class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 bg-violet-600 text-white shadow-lg shadow-violet-900/20"
+                    data-target="dashboard">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span class="font-medium">Dashboard</span>
+                </button>
+
+                <button onclick="switchTab('users')"
+                    class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                    data-target="users">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span class="font-medium">Players</span>
+                </button>
+
+                <button onclick="switchTab('games')"
+                    class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                    data-target="games">
+                    <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                    <span class="font-medium">Game Library</span>
+                </button>
+
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider px-4 mb-2 mt-8">System</div>
+                <button onclick="switchTab('settings')"
+                    class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 text-slate-400 hover:bg-slate-800 hover:text-white"
+                    data-target="settings">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span class="font-medium">Settings</span>
+                </button>
+            </div>
+
+            <!-- User Profile Footer -->
+            <div class="mt-auto pt-6 border-t border-slate-800">
+                <div class="flex items-center space-x-3 px-4 py-2 rounded-xl bg-slate-800/50">
+                    <div
+                        class="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500 flex items-center justify-center text-slate-900 font-bold text-xs">
+                        AD</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-white truncate">AdminUser</p>
+                        <p class="text-xs text-slate-500 truncate">Super Admin</p>
+                    </div>
+                    <i data-lucide="log-out" class="w-4 h-4 text-slate-500 hover:text-white cursor-pointer"></i>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<style>
-    .sidemenu .active {
-      background-color: #d61010; /* Apply your desired active style */
-      /* Add any other styles for the active menu item */
-    }
-</style>
-<script src="../../../public/assets/bundles/jquery/jquery.min.js"></script>
-<script>
-    (function() {
-      'use strict';
-        var settings = {
-            "url": "https://backend.docnet.tn/admin/dashboard/sidemenu",
-            "method": "GET",
-            "timeout": 0,
-        };
-                
-        $.ajax(settings).done(function (response) {
-            $(".count").html(response.onboardingDoctors? response.onboardingDoctors: "0")
-        })
-    
-    })();
-  </script> 
+    </aside>
